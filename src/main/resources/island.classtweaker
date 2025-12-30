@@ -1,0 +1,2 @@
+classTweaker v1 named
+inject-interface net/minecraft/world/level/storage/PlayerDataStorage com/macuguita/island/injected_interfaces/CustomPlayerDataStorage

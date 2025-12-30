@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "id": "island",
+  "version": "0.0.1-SNAPSHOT",
+  "environment": "*",
+  "entrypoints": {
+    "server": [
+      {
+        "value": "com.macuguita.island.server.ServerEntrypoint",
+        "adapter": "kotlin"
+      }
+    ],
+    "fabric-datagen": [
+      {
+        "value": "com.macuguita.island.datagen.DatagenEntrypoint",
+        "adapter": "kotlin"
+      }
+    ],
+    "client": [
+      {
+        "value": "com.macuguita.island.client.ClientEntrypoint",
+        "adapter": "kotlin"
+      }
+    ],
+    "main": [
+      {
+        "value": "com.macuguita.island.common.CommonEntrypoint",
+        "adapter": "kotlin"
+      }
+    ]
+  },
+  "mixins": [
+    "island.mixins.json"
+  ],
+  "accessWidener": "island.classtweaker",
+  "depends": {
+    "fabricloader": "\u003e\u003d0.18.4",
+    "minecraft": "\u003e\u003d1.21.11",
+    "java": "\u003e\u003d21",
+    "fabric-api": "*",
+    "fabric-language-kotlin": "*"
+  },
+  "name": "island",
+  "description": "island",
+  "authors": [
+    {
+      "name": "macuguita",
+      "contact": {
+        "discord": "macuguita"
+      }
+    }
+  ],
+  "contact": {
+    "homepage": "https://macuguita.com"
+  },
+  "license": "All-Rights-Reserved"
+}
