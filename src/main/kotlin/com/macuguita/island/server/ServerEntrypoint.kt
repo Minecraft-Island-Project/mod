@@ -27,7 +27,7 @@ object ServerEntrypoint : DedicatedServerModInitializer {
             val attachedData = JoinedServer.get(player)
             if (!attachedData.joinedServer) {
                 server.playerList.broadcastSystemMessage(
-                    Component.literal(player.name.string + " has joined for the first time, say hi!")
+                    Component.literal(String.format(ConfigManager.config.joinMessage, player.name.string))
                         .withStyle(ChatFormatting.YELLOW), false
                 )
                 attachedData.markJoined()
