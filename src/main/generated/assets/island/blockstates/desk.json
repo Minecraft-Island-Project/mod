@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "island:block/desk",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "island:block/desk"
+    },
+    "facing=south": {
+      "model": "island:block/desk",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "island:block/desk",
+      "y": 270
+    }
+  }
+}

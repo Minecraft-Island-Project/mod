@@ -1,0 +1,6 @@
+{
+  "parent": "island:custom/small_log_table",
+  "textures": {
+    "all": "island:block/small_log_oak_table"
+  }
+}

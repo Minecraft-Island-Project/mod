@@ -10,6 +10,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 object DatagenEntrypoint : DataGeneratorEntrypoint {
 
     override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
-        fabricDataGenerator.createPack()
+        val pack = fabricDataGenerator.createPack()
+
+        pack.addProvider(::IslandBlockStateGenerator)
     }
 }

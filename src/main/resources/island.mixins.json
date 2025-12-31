@@ -4,6 +4,7 @@
   "package": "com.macuguita.island.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "datagen.BlockModelGeneratorsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

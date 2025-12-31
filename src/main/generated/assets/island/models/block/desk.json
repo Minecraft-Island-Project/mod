@@ -1,0 +1,6 @@
+{
+  "parent": "island:custom/vanity",
+  "textures": {
+    "all": "island:block/desk"
+  }
+}

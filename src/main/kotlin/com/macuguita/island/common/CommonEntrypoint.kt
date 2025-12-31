@@ -4,6 +4,7 @@
 
 package com.macuguita.island.common
 
+import com.macuguita.island.common.reg.IslandCreativeModeTabs
 import com.macuguita.island.common.reg.IslandObjects
 import net.fabricmc.api.ModInitializer
 import net.minecraft.resources.Identifier
@@ -20,6 +21,7 @@ object CommonEntrypoint : ModInitializer {
     }
 
     override fun onInitialize() {
-        IslandObjects
+        IslandObjects.init()
+        IslandCreativeModeTabs.init()
     }
 }

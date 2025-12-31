@@ -5,6 +5,7 @@
 package com.macuguita.island.common.reg
 
 import com.macuguita.island.common.CommonEntrypoint
+import com.macuguita.island.common.block.DeskBlock
 import com.macuguita.lib.platform.registry.GuitaRegistries
 import com.macuguita.lib.platform.registry.GuitaRegistry
 import com.macuguita.lib.platform.registry.GuitaRegistryEntry
@@ -21,6 +22,9 @@ object IslandObjects {
 
     val BLOCKS = GuitaRegistries.create(BuiltInRegistries.BLOCK, CommonEntrypoint.MOD_ID)
     val ITEMS = GuitaRegistries.create(BuiltInRegistries.ITEM, CommonEntrypoint.MOD_ID)
+
+    val SMALL_LOG_OAK_TABLE = registerWithItem("small_log_oak_table", ::Block)
+    val DESK = registerWithItem("desk", ::DeskBlock)
 
     private fun <T : Block> registerWithItem(
         name: String,
@@ -55,4 +59,8 @@ object IslandObjects {
     private fun keyOfItem(name: String): ResourceKey<Item> =
         ResourceKey.create(Registries.ITEM, CommonEntrypoint.id(name))
 
+    fun init() {
+        BLOCKS.init()
+        ITEMS.init()
+    }
 }

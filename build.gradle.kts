@@ -7,6 +7,17 @@ plugins {
 
 loom {
     runs {
+        register("datagen") {
+            client()
+            name = "Data Generation"
+
+            vmArg("-Dfabric-api.datagen")
+            vmArg("-Dfabric-api.datagen.modid=${BuildConfig.modId}")
+            vmArg("-Dfabric-api.datagen.output-dir=${project.file("src/main/generated")}")
+            runDir("build/datagen")
+
+            ideConfigGenerated(true)
+        }
         register("clientMacuguita") {
             client()
             name = "Minecraft Client macuguita"
