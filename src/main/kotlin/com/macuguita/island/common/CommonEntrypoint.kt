@@ -4,6 +4,7 @@
 
 package com.macuguita.island.common
 
+import com.macuguita.island.common.reg.IslandObjects
 import net.fabricmc.api.ModInitializer
 import net.minecraft.resources.Identifier
 import org.slf4j.Logger
@@ -19,5 +20,6 @@ object CommonEntrypoint : ModInitializer {
     }
 
     override fun onInitialize() {
+        IslandObjects
     }
 }
