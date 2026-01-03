@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/sides_up/template_beam_side_2x2",
+  "textures": {
+    "side": "minecraft:block/pale_oak_log",
+    "top": "island:block/beams/pale_oak_beam_top_2x2"
+  }
+}

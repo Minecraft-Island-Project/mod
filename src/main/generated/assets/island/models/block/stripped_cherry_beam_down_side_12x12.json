@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/sides_down/template_beam_side_12x12",
+  "textures": {
+    "side": "minecraft:block/stripped_cherry_log",
+    "top": "island:block/beams/stripped_cherry_beam_top_12x12"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/template_beam_inventory",
+  "textures": {
+    "side": "minecraft:block/stripped_birch_log",
+    "top": "island:block/beams/stripped_birch_beam_top_8x8"
+  }
+}

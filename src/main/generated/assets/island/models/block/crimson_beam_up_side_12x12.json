@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/sides_up/template_beam_side_12x12",
+  "textures": {
+    "side": "minecraft:block/crimson_stem",
+    "top": "island:block/beams/crimson_beam_top_12x12"
+  }
+}

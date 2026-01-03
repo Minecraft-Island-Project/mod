@@ -6,7 +6,6 @@ package com.macuguita.island.common.reg
 
 import com.macuguita.island.common.CommonEntrypoint
 import com.macuguita.lib.platform.registry.GuitaRegistries
-import com.macuguita.lib.platform.registry.GuitaRegistry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.CreativeModeTab
@@ -21,7 +20,7 @@ object IslandCreativeModeTabs {
             .title(Component.translatable("creative_tab.${CommonEntrypoint.MOD_ID}.island"))
             .icon { ItemStack(IslandObjects.SMALL_LOG_OAK_TABLE.get()) }
             .displayItems { _, output ->
-                IslandObjects.ITEMS.stream().map { it.get().defaultInstance }.forEach(output::accept)
+                IslandObjects.BLOCK_ITEMS.stream().map { it.get().defaultInstance }.forEach(output::accept)
             }.build()
     }
 

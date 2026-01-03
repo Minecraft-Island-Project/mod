@@ -20,5 +20,8 @@
     "secret_spectator.ClientboundPlayerInfoUpdatePacketAccessor",
     "secret_spectator.PlayerListMixin",
     "secret_spectator.ServerPlayerGameModeMixin"
+  ],
+  "mixins": [
+    "FireBlockAccessor"
   ]
 }

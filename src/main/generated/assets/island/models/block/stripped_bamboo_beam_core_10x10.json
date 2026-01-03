@@ -1,0 +1,6 @@
+{
+  "parent": "island:custom/beams/cores/template_beam_core_10x10",
+  "textures": {
+    "side": "minecraft:block/stripped_bamboo_block"
+  }
+}

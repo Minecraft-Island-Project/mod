@@ -1,0 +1,6 @@
+{
+  "parent": "island:custom/beams/cores/template_beam_core_6x6",
+  "textures": {
+    "side": "minecraft:block/stripped_spruce_log"
+  }
+}

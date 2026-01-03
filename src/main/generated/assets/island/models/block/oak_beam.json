@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/template_beam_inventory",
+  "textures": {
+    "side": "minecraft:block/oak_log",
+    "top": "island:block/beams/oak_beam_top_8x8"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/template_beam_inventory",
+  "textures": {
+    "side": "minecraft:block/bamboo_block",
+    "top": "island:block/beams/bamboo_beam_top_8x8"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/sides_down/template_beam_side_2x2",
+  "textures": {
+    "side": "minecraft:block/stripped_warped_stem",
+    "top": "island:block/beams/stripped_warped_beam_top_2x2"
+  }
+}

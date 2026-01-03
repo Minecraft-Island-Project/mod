@@ -1,0 +1,6 @@
+{
+  "parent": "island:custom/beams/cores/template_beam_core_12x12",
+  "textures": {
+    "side": "minecraft:block/stripped_pale_oak_log"
+  }
+}

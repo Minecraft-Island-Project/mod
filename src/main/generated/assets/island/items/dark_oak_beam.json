@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "island:block/dark_oak_beam"
+  }
+}

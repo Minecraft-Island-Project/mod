@@ -12,6 +12,9 @@ object DatagenEntrypoint : DataGeneratorEntrypoint {
     override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
         val pack = fabricDataGenerator.createPack()
 
-        pack.addProvider(::IslandBlockStateGenerator)
+        pack.addProvider(::IslandBlockLootTableProvider)
+        pack.addProvider(::IslandBlockStateProvider)
+        pack.addProvider(::IslandBlockTagProvider)
+        pack.addProvider(::IslandLanguageProvider)
     }
 }

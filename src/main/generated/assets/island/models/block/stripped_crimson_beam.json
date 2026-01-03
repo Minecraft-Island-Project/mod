@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/template_beam_inventory",
+  "textures": {
+    "side": "minecraft:block/stripped_crimson_stem",
+    "top": "island:block/beams/stripped_crimson_beam_top_8x8"
+  }
+}

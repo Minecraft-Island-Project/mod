@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/sides_down/template_beam_side_14x14",
+  "textures": {
+    "side": "minecraft:block/stripped_acacia_log",
+    "top": "island:block/beams/stripped_acacia_beam_top_14x14"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "values": [
+    "island:oak_beam",
+    "island:stripped_oak_beam",
+    "island:spruce_beam",
+    "island:stripped_spruce_beam",
+    "island:birch_beam",
+    "island:stripped_birch_beam",
+    "island:jungle_beam",
+    "island:stripped_jungle_beam",
+    "island:acacia_beam",
+    "island:stripped_acacia_beam",
+    "island:dark_oak_beam",
+    "island:stripped_dark_oak_beam",
+    "island:mangrove_beam",
+    "island:stripped_mangrove_beam",
+    "island:cherry_beam",
+    "island:stripped_cherry_beam",
+    "island:bamboo_beam",
+    "island:stripped_bamboo_beam",
+    "island:pale_oak_beam",
+    "island:stripped_pale_oak_beam",
+    "island:crimson_beam",
+    "island:stripped_crimson_beam",
+    "island:warped_beam",
+    "island:stripped_warped_beam"
+  ]
+}

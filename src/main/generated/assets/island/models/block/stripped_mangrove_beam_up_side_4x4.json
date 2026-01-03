@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/sides_up/template_beam_side_4x4",
+  "textures": {
+    "side": "minecraft:block/stripped_mangrove_log",
+    "top": "island:block/beams/stripped_mangrove_beam_top_4x4"
+  }
+}

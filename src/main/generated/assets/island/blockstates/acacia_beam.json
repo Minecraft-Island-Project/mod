@@ -1,0 +1,1852 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_2x2"
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "1"
+          },
+          {
+            "OR": [
+              {
+                "up": "false"
+              },
+              {
+                "down": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "south": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              }
+            ]
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  },
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "OR": [
+                      {
+                        "north": "false"
+                      },
+                      {
+                        "south": "false"
+                      }
+                    ]
+                  },
+                  {
+                    "OR": [
+                      {
+                        "west": "false"
+                      },
+                      {
+                        "east": "false"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  },
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_2x2",
+        "x": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "1"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_2x2",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "1"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_2x2",
+        "x": 90
+      },
+      "when": {
+        "down": "true",
+        "radius": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_2x2",
+        "x": 270
+      },
+      "when": {
+        "radius": "1",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_2x2"
+      },
+      "when": {
+        "north": "true",
+        "radius": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_2x2",
+        "y": 180
+      },
+      "when": {
+        "radius": "1",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_2x2",
+        "y": 270
+      },
+      "when": {
+        "radius": "1",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_2x2",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "radius": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_4x4"
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "2"
+          },
+          {
+            "OR": [
+              {
+                "up": "false"
+              },
+              {
+                "down": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "south": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              }
+            ]
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  },
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "OR": [
+                      {
+                        "north": "false"
+                      },
+                      {
+                        "south": "false"
+                      }
+                    ]
+                  },
+                  {
+                    "OR": [
+                      {
+                        "west": "false"
+                      },
+                      {
+                        "east": "false"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  },
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_4x4",
+        "x": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "2"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_4x4",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "2"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_4x4",
+        "x": 90
+      },
+      "when": {
+        "down": "true",
+        "radius": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_4x4",
+        "x": 270
+      },
+      "when": {
+        "radius": "2",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_4x4"
+      },
+      "when": {
+        "north": "true",
+        "radius": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_4x4",
+        "y": 180
+      },
+      "when": {
+        "radius": "2",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_4x4",
+        "y": 270
+      },
+      "when": {
+        "radius": "2",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_4x4",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "radius": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_6x6"
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "3"
+          },
+          {
+            "OR": [
+              {
+                "up": "false"
+              },
+              {
+                "down": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "south": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              }
+            ]
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  },
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "OR": [
+                      {
+                        "north": "false"
+                      },
+                      {
+                        "south": "false"
+                      }
+                    ]
+                  },
+                  {
+                    "OR": [
+                      {
+                        "west": "false"
+                      },
+                      {
+                        "east": "false"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  },
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_6x6",
+        "x": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "3"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_6x6",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "3"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_6x6",
+        "x": 90
+      },
+      "when": {
+        "down": "true",
+        "radius": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_6x6",
+        "x": 270
+      },
+      "when": {
+        "radius": "3",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_6x6"
+      },
+      "when": {
+        "north": "true",
+        "radius": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_6x6",
+        "y": 180
+      },
+      "when": {
+        "radius": "3",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_6x6",
+        "y": 270
+      },
+      "when": {
+        "radius": "3",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_6x6",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "radius": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_8x8"
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "4"
+          },
+          {
+            "OR": [
+              {
+                "up": "false"
+              },
+              {
+                "down": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "south": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              }
+            ]
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  },
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "OR": [
+                      {
+                        "north": "false"
+                      },
+                      {
+                        "south": "false"
+                      }
+                    ]
+                  },
+                  {
+                    "OR": [
+                      {
+                        "west": "false"
+                      },
+                      {
+                        "east": "false"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  },
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_8x8",
+        "x": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "4"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_8x8",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "4"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_8x8",
+        "x": 90
+      },
+      "when": {
+        "down": "true",
+        "radius": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_8x8",
+        "x": 270
+      },
+      "when": {
+        "radius": "4",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_8x8"
+      },
+      "when": {
+        "north": "true",
+        "radius": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_8x8",
+        "y": 180
+      },
+      "when": {
+        "radius": "4",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_8x8",
+        "y": 270
+      },
+      "when": {
+        "radius": "4",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_8x8",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "radius": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_10x10"
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "5"
+          },
+          {
+            "OR": [
+              {
+                "up": "false"
+              },
+              {
+                "down": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "south": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              }
+            ]
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  },
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "OR": [
+                      {
+                        "north": "false"
+                      },
+                      {
+                        "south": "false"
+                      }
+                    ]
+                  },
+                  {
+                    "OR": [
+                      {
+                        "west": "false"
+                      },
+                      {
+                        "east": "false"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  },
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_10x10",
+        "x": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "5"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_10x10",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "5"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_10x10",
+        "x": 90
+      },
+      "when": {
+        "down": "true",
+        "radius": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_10x10",
+        "x": 270
+      },
+      "when": {
+        "radius": "5",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_10x10"
+      },
+      "when": {
+        "north": "true",
+        "radius": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_10x10",
+        "y": 180
+      },
+      "when": {
+        "radius": "5",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_10x10",
+        "y": 270
+      },
+      "when": {
+        "radius": "5",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_10x10",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "radius": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_12x12"
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "6"
+          },
+          {
+            "OR": [
+              {
+                "up": "false"
+              },
+              {
+                "down": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "south": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              }
+            ]
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  },
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "OR": [
+                      {
+                        "north": "false"
+                      },
+                      {
+                        "south": "false"
+                      }
+                    ]
+                  },
+                  {
+                    "OR": [
+                      {
+                        "west": "false"
+                      },
+                      {
+                        "east": "false"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  },
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_12x12",
+        "x": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "6"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_12x12",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "6"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_12x12",
+        "x": 90
+      },
+      "when": {
+        "down": "true",
+        "radius": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_12x12",
+        "x": 270
+      },
+      "when": {
+        "radius": "6",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_12x12"
+      },
+      "when": {
+        "north": "true",
+        "radius": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_12x12",
+        "y": 180
+      },
+      "when": {
+        "radius": "6",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_12x12",
+        "y": 270
+      },
+      "when": {
+        "radius": "6",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_12x12",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "radius": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_14x14"
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "7"
+          },
+          {
+            "OR": [
+              {
+                "up": "false"
+              },
+              {
+                "down": "false"
+              },
+              {
+                "north": "false"
+              },
+              {
+                "south": "false"
+              },
+              {
+                "east": "false"
+              },
+              {
+                "west": "false"
+              }
+            ]
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  },
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "OR": [
+                      {
+                        "north": "false"
+                      },
+                      {
+                        "south": "false"
+                      }
+                    ]
+                  },
+                  {
+                    "OR": [
+                      {
+                        "west": "false"
+                      },
+                      {
+                        "east": "false"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "AND": [
+                  {
+                    "up": "false"
+                  },
+                  {
+                    "down": "false"
+                  },
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  },
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_14x14",
+        "x": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "7"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "north": "true"
+                  },
+                  {
+                    "south": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "east": "false"
+                  },
+                  {
+                    "west": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_core_14x14",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "radius": "7"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "AND": [
+              {
+                "AND": [
+                  {
+                    "east": "true"
+                  },
+                  {
+                    "west": "true"
+                  }
+                ]
+              },
+              {
+                "OR": [
+                  {
+                    "north": "false"
+                  },
+                  {
+                    "south": "false"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_14x14",
+        "x": 90
+      },
+      "when": {
+        "down": "true",
+        "radius": "7"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_14x14",
+        "x": 270
+      },
+      "when": {
+        "radius": "7",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_14x14"
+      },
+      "when": {
+        "north": "true",
+        "radius": "7"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_14x14",
+        "y": 180
+      },
+      "when": {
+        "radius": "7",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_down_side_14x14",
+        "y": 270
+      },
+      "when": {
+        "radius": "7",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "island:block/acacia_beam_up_side_14x14",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "radius": "7"
+      }
+    }
+  ]
+}

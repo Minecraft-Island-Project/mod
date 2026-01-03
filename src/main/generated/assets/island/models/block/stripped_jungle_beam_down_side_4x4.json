@@ -1,0 +1,7 @@
+{
+  "parent": "island:custom/beams/sides_down/template_beam_side_4x4",
+  "textures": {
+    "side": "minecraft:block/stripped_jungle_log",
+    "top": "island:block/beams/stripped_jungle_beam_top_4x4"
+  }
+}
