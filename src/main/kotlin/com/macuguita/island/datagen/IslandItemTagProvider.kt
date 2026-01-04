@@ -19,5 +19,10 @@ class IslandItemTagProvider(
     override fun addTags(p0: HolderLookup.Provider) {
         valueLookupBuilder(IslandItemTags.SECATEURS)
             .add(IslandObjects.SECATEURS.get())
+        valueLookupBuilder(IslandItemTags.ICE_CREAM_HOLDER)
+            .add(IslandObjects.ICE_CREAM_CONE.get())
+            .add(IslandObjects.ICE_CREAM_CUP.get())
+        valueLookupBuilder(IslandItemTags.JOB_AREA)
+            .add(IslandObjects.ICE_CREAM_JOB_AREA.get().asItem())
     }
 }

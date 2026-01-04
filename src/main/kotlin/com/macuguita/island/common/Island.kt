@@ -7,6 +7,7 @@ package com.macuguita.island.common
 import com.macuguita.island.common.block.ResizableBeamBlock
 import com.macuguita.island.common.commands.CommandRegistrator
 import com.macuguita.island.common.reg.IslandCreativeModeTabs
+import com.macuguita.island.common.reg.IslandDataComponents
 import com.macuguita.island.common.reg.IslandItemTags
 import com.macuguita.island.common.reg.IslandObjects
 import net.fabricmc.api.ModInitializer
@@ -18,6 +19,7 @@ import net.minecraft.tags.ItemTags
 import net.minecraft.world.InteractionResult
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.util.*
 
 object Island : ModInitializer {
 
@@ -28,9 +30,12 @@ object Island : ModInitializer {
         return Identifier.fromNamespaceAndPath(MOD_ID, name)
     }
 
+    fun <T> Optional<T>.orNull(): T? = orElse(null)
+
     override fun onInitialize() {
         IslandObjects.init()
         IslandCreativeModeTabs.init()
+        IslandDataComponents.init()
 
         UseBlockCallback.EVENT.register { player, level, hand, hitResult ->
             val pos = hitResult.blockPos

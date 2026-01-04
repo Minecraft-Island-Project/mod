@@ -5,11 +5,13 @@
 package com.macuguita.island.datagen
 
 import com.macuguita.island.common.Island
+import com.macuguita.island.common.reg.IslandCreativeModeTabs
 import com.macuguita.island.common.reg.IslandObjects
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import java.util.*
@@ -30,8 +32,9 @@ class IslandLanguageProvider(
         IslandObjects.ITEMS.entries.forEach {
             generateItemTranslations(translationBuilder, it.get())
         }
-        translationBuilder.add("creative_tab.${Island.MOD_ID}.furniture", "Furniture")
-        translationBuilder.add("creative_tab.${Island.MOD_ID}.woods", "Woods")
+        IslandCreativeModeTabs.CREATIVE_MODE_TABS.entries.forEach {
+            generateCreativeTabTranslations(translationBuilder, it.get())
+        }
     }
 
     private fun capitalizeString(string: String): String {
@@ -56,5 +59,14 @@ class IslandLanguageProvider(
     private fun generateItemTranslations(translationBuilder: TranslationBuilder, item: Item) {
         val temp = capitalizeString(BuiltInRegistries.ITEM.getKey(item).path.replace("_", " "))
         translationBuilder.add(item, temp)
+    }
+
+    private fun generateCreativeTabTranslations(
+        translationBuilder: TranslationBuilder,
+        creativeModeTab: CreativeModeTab
+    ) {
+        val key = BuiltInRegistries.CREATIVE_MODE_TAB.getKey(creativeModeTab)!!.path
+        val temp = capitalizeString(key.replace("_", " "))
+        translationBuilder.add("creative_tab.${Island.MOD_ID}.$key", temp)
     }
 }

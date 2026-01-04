@@ -21,5 +21,7 @@ class IslandBlockTagProvider(
             valueLookupBuilder(IslandBlockTags.BEAM)
                 .add(it.get())
         }
+        valueLookupBuilder(IslandBlockTags.JOB_AREA)
+            .add(IslandObjects.ICE_CREAM_JOB_AREA.get())
     }
 }

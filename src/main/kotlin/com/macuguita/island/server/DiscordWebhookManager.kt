@@ -34,8 +34,9 @@ class DiscordWebhookManager(
         message: String,
         player: ServerPlayer? = null
     ) {
-        val uri = webhookUri?: return
-        val avatarUrl = if (player != null) String.format(discordConfig.headApiUrl, player.uuid) else discordConfig.defaultImage
+        val uri = webhookUri ?: return
+        val avatarUrl =
+            if (player != null) String.format(discordConfig.headApiUrl, player.uuid) else discordConfig.defaultImage
         val username = player?.name?.string ?: discordConfig.serverName
 
         val payload = Webhook(

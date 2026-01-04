@@ -32,6 +32,8 @@ e1ca3e9391321d433a77f936f60c56e85adbdc05 assets/island/blockstates/stripped_warp
 12fa37cae10d7eadb0227773e9441cb230df15eb assets/island/items/crimson_beam.json
 2abc66f19f54132c40f06d15d0e0fee3d917ec47 assets/island/items/dark_oak_beam.json
 018d431d97ee106efb60c5d940996aba0510dc4f assets/island/items/desk.json
+f39aeaaa10d89b70190da058d14d260afafe6cd2 assets/island/items/ice_cream_cone.json
+72d320308da0ef07200c3527f1e12847e22431c7 assets/island/items/ice_cream_cup.json
 11032765e5b49c571ebf174457daef24a9bf081a assets/island/items/jungle_beam.json
 4f7515471aae9300820dce777c0c8ae82e31cefa assets/island/items/mangrove_beam.json
 914311a49ba8fdc9077479fb0970c06a3c0e5d17 assets/island/items/oak_beam.json
@@ -582,4 +584,6 @@ d0e19ad1b5e93534b0b9fec980846a85a6374338 assets/island/models/block/warped_beam_
 f3a46008b279afc6046d5c5f34021f76c96decee assets/island/models/block/warped_beam_up_side_4x4.json
 74f175218895817cb70404971397bf4190f14d27 assets/island/models/block/warped_beam_up_side_6x6.json
 1b2367c5a0be1249362958f24049df0db45de65c assets/island/models/block/warped_beam_up_side_8x8.json
+bfb6884a8e6c7cd39b80def7b317e46945989e30 assets/island/models/item/ice_cream_cone.json
+00ddff2cea7e5462359511186f9303fab5d5edba assets/island/models/item/ice_cream_cup.json
 b8646d47f6a73ef30f0984f5f844e0201c53a4cd assets/island/models/item/secateurs.json

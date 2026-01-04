@@ -75,6 +75,8 @@ class IslandBlockStateProvider(output: FabricDataOutput) : FabricModelProvider(o
 
     override fun generateItemModels(itemModelGenerators: ItemModelGenerators) {
         itemModelGenerators.generateFlatItem(IslandObjects.SECATEURS.get(), ModelTemplates.FLAT_ITEM)
+        itemModelGenerators.generateFlatItem(IslandObjects.ICE_CREAM_CONE.get(), ModelTemplates.FLAT_ITEM)
+        itemModelGenerators.generateFlatItem(IslandObjects.ICE_CREAM_CUP.get(), ModelTemplates.FLAT_ITEM)
     }
 
     private fun registerBeamBlock(

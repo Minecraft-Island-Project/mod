@@ -38,6 +38,17 @@ object IslandCreativeModeTabs {
             }.build()
     }
 
+    val ICE_CREAM_JOB: GuitaRegistryEntry<CreativeModeTab> = CREATIVE_MODE_TABS.register("ice_cream_job") {
+        CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
+            .title(Component.translatable("creative_tab.${Island.MOD_ID}.ice_cream_job"))
+            .icon { ItemStack(IslandObjects.ICE_CREAM_CONE.get()) }
+            .displayItems { _, output ->
+                IslandObjects.ICE_CREAM_JOB_ITEMS.stream().map { it.get().defaultInstance }.forEach(output::accept)
+                IslandObjects.ICE_CREAM_JOB_BLOCK_ITEMS.stream().map { it.get().defaultInstance }
+                    .forEach(output::accept)
+            }.build()
+    }
+
     fun init() {
         CREATIVE_MODE_TABS.init()
     }

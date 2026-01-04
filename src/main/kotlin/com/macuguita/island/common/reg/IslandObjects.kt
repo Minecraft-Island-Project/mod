@@ -7,6 +7,10 @@ package com.macuguita.island.common.reg
 import com.macuguita.island.common.Island
 import com.macuguita.island.common.block.DeskBlock
 import com.macuguita.island.common.block.ResizableBeamBlock
+import com.macuguita.island.common.block.jobs.JobZoneBlock
+import com.macuguita.island.common.block.jobs.ice_cream.FlavourPickerBlock
+import com.macuguita.island.common.block.jobs.ice_cream.ToppingPickerBlock
+import com.macuguita.island.common.item.IceCreamConeItem
 import com.macuguita.island.common.util.Wood
 import com.macuguita.island.common.util.WoodSet
 import com.macuguita.island.common.util.WoodType
@@ -36,6 +40,10 @@ object IslandObjects {
     val WOODS: GuitaRegistry<Block> = GuitaRegistries.create(BLOCKS)
     val BEAMS: GuitaRegistry<Block> = GuitaRegistries.create(WOODS)
 
+    val ICE_CREAM_JOB_BLOCKS: GuitaRegistry<Block> = GuitaRegistries.create(BLOCKS)
+    val ICE_CREAM_JOB_BLOCK_ITEMS: GuitaRegistry<Item> = GuitaRegistries.create(BLOCK_ITEMS)
+    val ICE_CREAM_JOB_ITEMS: GuitaRegistry<Item> = GuitaRegistries.create(ITEMS)
+
     val BLOCK_TO_WOOD = mutableMapOf<Block, WoodType>()
     val WOOD_SETS = mutableMapOf<WoodType, WoodSet>()
 
@@ -46,6 +54,27 @@ object IslandObjects {
     val SECATEURS = registerItem("secateurs", ::Item)
     val SMALL_LOG_OAK_TABLE = registerWithItem("small_log_oak_table", ::Block, blockReg = FURNITURE)
     val DESK = registerWithItem("desk", ::DeskBlock, blockReg = FURNITURE)
+
+    val ICE_CREAM_CONE = registerItem("ice_cream_cone", ::IceCreamConeItem, itemReg = ICE_CREAM_JOB_ITEMS)
+    val ICE_CREAM_CUP = registerItem("ice_cream_cup", ::IceCreamConeItem, itemReg = ICE_CREAM_JOB_ITEMS)
+    val FLAVOUR_PICKER = registerWithItem(
+        "flavour_picker",
+        ::FlavourPickerBlock,
+        blockReg = ICE_CREAM_JOB_BLOCKS,
+        itemReg = ICE_CREAM_JOB_BLOCK_ITEMS
+    )
+    val TOPPING_PICKER = registerWithItem(
+        "topping_picker",
+        ::ToppingPickerBlock,
+        blockReg = ICE_CREAM_JOB_BLOCKS,
+        itemReg = ICE_CREAM_JOB_BLOCK_ITEMS
+    )
+    val ICE_CREAM_JOB_AREA = registerWithItem(
+        "ice_cream_job_area",
+        { prop -> JobZoneBlock(prop, IslandJobs.ICE_CREAM_ID) },
+        blockReg = ICE_CREAM_JOB_BLOCKS,
+        itemReg = ICE_CREAM_JOB_BLOCK_ITEMS
+    )
 
     private fun <T : Block> registerWithItem(
         name: String,

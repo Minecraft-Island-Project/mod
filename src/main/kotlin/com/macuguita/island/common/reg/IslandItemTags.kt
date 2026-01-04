@@ -12,6 +12,8 @@ import net.minecraft.world.item.Item
 object IslandItemTags {
 
     val SECATEURS = createTag("secateurs")
+    val ICE_CREAM_HOLDER = createTag("ice_cream_holder")
+    val JOB_AREA = createTag("job_area")
 
     fun createTag(name: String): TagKey<Item> = TagKey.create(Registries.ITEM, Island.id(name))
 }

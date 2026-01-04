@@ -14,6 +14,7 @@ class ServerConfig : WrappedConfig() {
 
     @Comment("Configurations for the minecraft chat -> discord server connection")
     var discord = Discord()
+
     class Discord : Section {
         @Comment("Default webhook name")
         var serverName: String = "Island"

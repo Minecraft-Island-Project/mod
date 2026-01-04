@@ -41,9 +41,10 @@ class DeskBlock(properties: Properties) : HorizontalDirectionalBlock(properties)
         builder.add(WATERLOGGED, FACING)
     }
 
-    override fun getStateForPlacement(context: BlockPlaceContext): BlockState = this.defaultBlockState()
-        .setValue(FACING, context.horizontalDirection.opposite)
-        .setValue(WATERLOGGED, context.level.getFluidState(context.clickedPos).type === Fluids.WATER)
+    override fun getStateForPlacement(context: BlockPlaceContext): BlockState =
+        defaultBlockState()
+            .setValue(FACING, context.horizontalDirection.opposite)
+            .setValue(WATERLOGGED, context.level.getFluidState(context.clickedPos).type === Fluids.WATER)
 
     override fun updateShape(
         blockState: BlockState,

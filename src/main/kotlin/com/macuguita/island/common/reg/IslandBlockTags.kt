@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block
 object IslandBlockTags {
 
     val BEAM = createTag("beam")
+    val JOB_AREA = createTag("job_area")
 
     fun createTag(name: String): TagKey<Block> = TagKey.create(Registries.BLOCK, Island.id(name))
 }

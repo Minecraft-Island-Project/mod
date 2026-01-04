@@ -6,6 +6,8 @@
   "block.island.crimson_beam": "Crimson Beam",
   "block.island.dark_oak_beam": "Dark Oak Beam",
   "block.island.desk": "Desk",
+  "block.island.flavour_picker": "Flavour Picker",
+  "block.island.ice_cream_job_area": "Ice Cream Job Area",
   "block.island.jungle_beam": "Jungle Beam",
   "block.island.mangrove_beam": "Mangrove Beam",
   "block.island.oak_beam": "Oak Beam",
@@ -24,8 +26,12 @@
   "block.island.stripped_pale_oak_beam": "Stripped Pale Oak Beam",
   "block.island.stripped_spruce_beam": "Stripped Spruce Beam",
   "block.island.stripped_warped_beam": "Stripped Warped Beam",
+  "block.island.topping_picker": "Topping Picker",
   "block.island.warped_beam": "Warped Beam",
   "creative_tab.island.furniture": "Furniture",
+  "creative_tab.island.ice_cream_job": "Ice Cream Job",
   "creative_tab.island.woods": "Woods",
+  "item.island.ice_cream_cone": "Ice Cream Cone",
+  "item.island.ice_cream_cup": "Ice Cream Cup",
   "item.island.secateurs": "Secateurs"
 }
