@@ -2,6 +2,7 @@ plugins {
 	id("net.fabricmc.fabric-loom-remap").version("1.14-SNAPSHOT")
 	id("maven-publish")
     id("org.jetbrains.kotlin.jvm").version("2.2.21")
+    kotlin("plugin.serialization") version "2.3.0"
 }
 
 loom {
