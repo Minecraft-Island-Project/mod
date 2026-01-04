@@ -23,10 +23,18 @@ class DiscordWebhookManager(
         .connectTimeout(Duration.ofSeconds(5))
         .build()
 
+    private val webhookUri: URI? = try {
+        URI(discordConfig.discordWebhookUrl)
+    } catch (e: Exception) {
+        Island.LOGGER.error("Invalid Discord webhook URL: ${discordConfig.discordWebhookUrl}", e)
+        null
+    }
+
     fun announce(
         message: String,
         player: ServerPlayer? = null
     ) {
+        val uri = webhookUri?: return
         val avatarUrl = if (player != null) String.format(discordConfig.headApiUrl, player.uuid) else discordConfig.defaultImage
         val username = player?.name?.string ?: discordConfig.serverName
 
@@ -38,7 +46,7 @@ class DiscordWebhookManager(
         )
 
         val request = HttpRequest.newBuilder()
-            .uri(URI.create(discordConfig.discordWebhookUrl))
+            .uri(uri)
             .timeout(Duration.ofSeconds(5))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(Json.encodeToString(payload)))
