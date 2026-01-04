@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 package com.macuguita.island.datagen
 
-import com.macuguita.island.common.CommonEntrypoint
+import com.macuguita.island.common.Island
 import com.macuguita.island.common.block.ResizableBeamBlock
 import com.macuguita.island.common.reg.IslandObjects
 import com.macuguita.island.mixin.datagen.BlockModelGeneratorsMixin
@@ -16,6 +16,7 @@ import net.minecraft.client.data.models.MultiVariant
 import net.minecraft.client.data.models.blockstates.ConditionBuilder
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator
 import net.minecraft.client.data.models.model.ModelTemplate
+import net.minecraft.client.data.models.model.ModelTemplates
 import net.minecraft.client.data.models.model.TextureMapping
 import net.minecraft.client.data.models.model.TextureSlot
 import net.minecraft.client.renderer.block.model.VariantMutator
@@ -50,7 +51,7 @@ class IslandBlockStateProvider(output: FabricDataOutput) : FabricModelProvider(o
 
         IslandObjects.BEAMS.entries.forEach { entry ->
             val block = entry.get()
-            val wood = IslandObjects.COMBINED_WOOD_MAP[block]!!
+            val wood = IslandObjects.BLOCK_TO_WOOD[block]!!
             registerBeamBlock(
                 blockModelGenerators, block,
                 TextureMapping().put(TextureSlot.SIDE, TextureMapping.getBlockTexture(wood.getLog())),
@@ -72,7 +73,8 @@ class IslandBlockStateProvider(output: FabricDataOutput) : FabricModelProvider(o
         }
     }
 
-    override fun generateItemModels(blockModelGenerators: ItemModelGenerators) {
+    override fun generateItemModels(itemModelGenerators: ItemModelGenerators) {
+        itemModelGenerators.generateFlatItem(IslandObjects.SECATEURS.get(), ModelTemplates.FLAT_ITEM)
     }
 
     private fun registerBeamBlock(
@@ -313,145 +315,145 @@ class IslandBlockStateProvider(output: FabricDataOutput) : FabricModelProvider(o
             BuiltInRegistries.BLOCK.getKey(block).withPath { "block/beams/$it$suffix" }
 
         private val SMALL_LOG_TABLE = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/small_log_table")),
+            Optional.of(Island.id("custom/small_log_table")),
             Optional.empty(),
             TextureSlot.ALL
         )
 
         private val VANITY = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/vanity")),
+            Optional.of(Island.id("custom/vanity")),
             Optional.empty(),
             TextureSlot.ALL
         )
 
         private val BEAM_SIDE_INVENTORY: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/template_beam_inventory")),
+            Optional.of(Island.id("custom/beams/template_beam_inventory")),
             Optional.empty(),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_CORE_2X2: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/cores/template_beam_core_2x2")),
+            Optional.of(Island.id("custom/beams/cores/template_beam_core_2x2")),
             Optional.of("_core_2x2"),
             TextureSlot.SIDE
         )
 
         private val BEAM_CORE_4X4: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/cores/template_beam_core_4x4")),
+            Optional.of(Island.id("custom/beams/cores/template_beam_core_4x4")),
             Optional.of("_core_4x4"),
             TextureSlot.SIDE
         )
 
         private val BEAM_CORE_6X6: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/cores/template_beam_core_6x6")),
+            Optional.of(Island.id("custom/beams/cores/template_beam_core_6x6")),
             Optional.of("_core_6x6"),
             TextureSlot.SIDE
         )
 
         private val BEAM_CORE_8X8: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/cores/template_beam_core_8x8")),
+            Optional.of(Island.id("custom/beams/cores/template_beam_core_8x8")),
             Optional.of("_core_8x8"),
             TextureSlot.SIDE
         )
 
         private val BEAM_CORE_10X10: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/cores/template_beam_core_10x10")),
+            Optional.of(Island.id("custom/beams/cores/template_beam_core_10x10")),
             Optional.of("_core_10x10"),
             TextureSlot.SIDE
         )
 
         private val BEAM_CORE_12X12: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/cores/template_beam_core_12x12")),
+            Optional.of(Island.id("custom/beams/cores/template_beam_core_12x12")),
             Optional.of("_core_12x12"),
             TextureSlot.SIDE
         )
 
         private val BEAM_CORE_14X14: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/cores/template_beam_core_14x14")),
+            Optional.of(Island.id("custom/beams/cores/template_beam_core_14x14")),
             Optional.of("_core_14x14"),
             TextureSlot.SIDE
         )
 
         private val BEAM_SIDE_UP_2X2: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_up/template_beam_side_2x2")),
+            Optional.of(Island.id("custom/beams/sides_up/template_beam_side_2x2")),
             Optional.of("_side_2x2"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_UP_4X4: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_up/template_beam_side_4x4")),
+            Optional.of(Island.id("custom/beams/sides_up/template_beam_side_4x4")),
             Optional.of("_side_4x4"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_UP_6X6: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_up/template_beam_side_6x6")),
+            Optional.of(Island.id("custom/beams/sides_up/template_beam_side_6x6")),
             Optional.of("_side_6x6"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_UP_8X8: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_up/template_beam_side_8x8")),
+            Optional.of(Island.id("custom/beams/sides_up/template_beam_side_8x8")),
             Optional.of("_side_8x8"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_UP_10X10: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_up/template_beam_side_10x10")),
+            Optional.of(Island.id("custom/beams/sides_up/template_beam_side_10x10")),
             Optional.of("_side_10x10"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_UP_12X12: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_up/template_beam_side_12x12")),
+            Optional.of(Island.id("custom/beams/sides_up/template_beam_side_12x12")),
             Optional.of("_side_12x12"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_UP_14X14: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_up/template_beam_side_14x14")),
+            Optional.of(Island.id("custom/beams/sides_up/template_beam_side_14x14")),
             Optional.of("_side_14x14"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_DOWN_2X2: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_down/template_beam_side_2x2")),
+            Optional.of(Island.id("custom/beams/sides_down/template_beam_side_2x2")),
             Optional.of("_side_2x2"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_DOWN_4X4: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_down/template_beam_side_4x4")),
+            Optional.of(Island.id("custom/beams/sides_down/template_beam_side_4x4")),
             Optional.of("_side_4x4"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_DOWN_6X6: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_down/template_beam_side_6x6")),
+            Optional.of(Island.id("custom/beams/sides_down/template_beam_side_6x6")),
             Optional.of("_side_6x6"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_DOWN_8X8: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_down/template_beam_side_8x8")),
+            Optional.of(Island.id("custom/beams/sides_down/template_beam_side_8x8")),
             Optional.of("_side_8x8"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_DOWN_10X10: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_down/template_beam_side_10x10")),
+            Optional.of(Island.id("custom/beams/sides_down/template_beam_side_10x10")),
             Optional.of("_side_10x10"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_DOWN_12X12: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_down/template_beam_side_12x12")),
+            Optional.of(Island.id("custom/beams/sides_down/template_beam_side_12x12")),
             Optional.of("_side_12x12"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
 
         private val BEAM_SIDE_DOWN_14X14: ModelTemplate = ModelTemplate(
-            Optional.of(CommonEntrypoint.id("custom/beams/sides_down/template_beam_side_14x14")),
+            Optional.of(Island.id("custom/beams/sides_down/template_beam_side_14x14")),
             Optional.of("_side_14x14"),
             TextureSlot.SIDE, TextureSlot.TOP
         )
@@ -523,7 +525,7 @@ class IslandBlockStateProvider(output: FabricDataOutput) : FabricModelProvider(o
                         BlockModelGenerators.condition().term(ResizableBeamBlock.WEST, false)
                     )
                 )
-            ), coreWeightedVariantMap.get(size)!!.with(BlockModelGenerators.X_ROT_90)
+            ), coreWeightedVariantMap[size]!!.with(BlockModelGenerators.X_ROT_90)
         )
 
         multiPartGenerator.with(
@@ -542,7 +544,7 @@ class IslandBlockStateProvider(output: FabricDataOutput) : FabricModelProvider(o
                     )
                 )
             ),
-            coreWeightedVariantMap.get(size)!!.with(BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
+            coreWeightedVariantMap[size]!!.with(BlockModelGenerators.X_ROT_90.then(BlockModelGenerators.Y_ROT_90))
         )
     }
 

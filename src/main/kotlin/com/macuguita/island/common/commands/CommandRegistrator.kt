@@ -1,14 +1,12 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
-package com.macuguita.island.server.commands
+package com.macuguita.island.common.commands
 
-import com.macuguita.island.server.commands.admin.OfflinePlayerPosCommand
-import com.macuguita.island.server.commands.admin.OfflineTpCommand
-import com.macuguita.island.server.commands.config.ConfigCommand
-import com.macuguita.island.server.commands.config.ReloadConfig
-import com.macuguita.island.server.commands.connection_manager.ConnectionManagerCommand
+import com.macuguita.island.common.commands.admin.OfflinePlayerPosCommand
+import com.macuguita.island.common.commands.admin.OfflineTpCommand
+import com.macuguita.island.common.commands.connection_manager.ConnectionManagerCommand
 import com.mojang.brigadier.CommandDispatcher
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.minecraft.commands.CommandBuildContext
@@ -25,8 +23,6 @@ interface CommandRegistrator {
             buildContext: CommandBuildContext,
             selection: Commands.CommandSelection
         ) {
-            ConfigCommand.register(dispatcher)
-            ReloadConfig.register(dispatcher)
             OfflineTpCommand.register(dispatcher)
             OfflinePlayerPosCommand.register(dispatcher)
             ConnectionManagerCommand.register(dispatcher)

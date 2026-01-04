@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 package com.macuguita.island.server.admin
@@ -12,9 +12,6 @@ import net.minecraft.world.level.GameType
 
 @Suppress("KotlinConstantConditions")
 object SecretSpectator {
-
-    fun canPlayerSeeSpectatorOf(other: ServerPlayer, player: ServerPlayer): Boolean =
-        player == other || canSeeOtherSpectators(player)
 
     fun canSeeOtherSpectators(player: ServerPlayer): Boolean =
         player.isSpectator || player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)

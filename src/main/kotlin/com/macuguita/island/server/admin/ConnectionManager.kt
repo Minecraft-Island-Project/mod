@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 package com.macuguita.island.server.admin
@@ -23,18 +23,20 @@ object ConnectionManager {
         state = manager.computeIfAbsent(ConnectionState.TYPE)
     }
 
+    @JvmStatic
     fun shouldManage(uuid: UUID): Boolean = state.contains(uuid)
 
+    @JvmStatic
     fun add(uuid: UUID): Boolean = state.add(uuid)
 
+    @JvmStatic
     fun remove(uuid: UUID): Boolean = state.remove(uuid)
 
+    @JvmStatic
     fun all(): Set<UUID> = state.all()
 }
 
 class ConnectionState(private val uuidsInternal: MutableSet<UUID> = HashSet()) : SavedData() {
-
-    constructor(list: List<UUID>) : this(HashSet(list))
 
     fun add(uuid: UUID): Boolean = uuidsInternal.add(uuid).also { if (it) setDirty() }
 

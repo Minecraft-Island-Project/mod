@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 package com.macuguita.island.mixin.connection;
@@ -37,7 +37,7 @@ public class ServerPlayerMixin {
 	private void island$onPositionCheck(double dx, double dy, double dz, CallbackInfo ci) {
 		ServerPlayer player = (ServerPlayer) (Object) this;
 
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			Vec3 currentPos = player.position();
 
 			double movementDistance = currentPos.distanceTo(lastPosition);

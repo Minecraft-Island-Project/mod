@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) 2026 macuguita. All Rights Reserved.
+ */
+
 package com.macuguita.island.datagen
 
-import com.macuguita.island.common.CommonEntrypoint
+import com.macuguita.island.common.Island
 import com.macuguita.island.common.reg.IslandObjects
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider
@@ -26,7 +30,8 @@ class IslandLanguageProvider(
         IslandObjects.ITEMS.entries.forEach {
             generateItemTranslations(translationBuilder, it.get())
         }
-        translationBuilder.add("creative_tab.${CommonEntrypoint.MOD_ID}.island", "Furniture")
+        translationBuilder.add("creative_tab.${Island.MOD_ID}.furniture", "Furniture")
+        translationBuilder.add("creative_tab.${Island.MOD_ID}.woods", "Woods")
     }
 
     private fun capitalizeString(string: String): String {

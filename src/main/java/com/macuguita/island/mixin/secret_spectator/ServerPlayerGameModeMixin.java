@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 package com.macuguita.island.mixin.secret_spectator;
@@ -7,9 +7,7 @@ package com.macuguita.island.mixin.secret_spectator;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.macuguita.island.server.admin.SecretSpectator;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 import net.minecraft.network.protocol.Packet;
@@ -24,10 +22,6 @@ import net.fabricmc.api.Environment;
 @Environment(EnvType.SERVER)
 @Mixin(ServerPlayerGameMode.class)
 public class ServerPlayerGameModeMixin {
-
-	@Shadow
-	@Final
-	protected ServerPlayer player;
 
 	@WrapOperation(
 			method = "changeGameModeForPlayer",

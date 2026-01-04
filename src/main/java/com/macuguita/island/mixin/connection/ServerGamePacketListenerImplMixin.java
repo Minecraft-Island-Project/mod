@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 package com.macuguita.island.mixin.connection;
@@ -43,7 +43,7 @@ public class ServerGamePacketListenerImplMixin {
 			at = @At("HEAD")
 	)
 	private void island$onTick(CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			tickCount++;
 
 			if (tickCount % 20 == 0) {
@@ -70,7 +70,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onBlockPlaceAttempt(CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.25f) {
 				ci.cancel();
 			}
@@ -83,7 +83,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onMovementPacket(ServerboundMovePlayerPacket packet, CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.3f) {
 				ci.cancel();
 			}
@@ -104,7 +104,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onPaddleBoatPacket(ServerboundPaddleBoatPacket packet, CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.5f) {
 				ci.cancel();
 			}
@@ -125,7 +125,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onContainerClickPacket(ServerboundContainerClickPacket packet, CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.15f) {
 				ci.cancel();
 			}
@@ -146,7 +146,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onContainerClosePacket(ServerboundContainerClosePacket packet, CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.05f) {
 				ci.cancel();
 			}
@@ -167,7 +167,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onPickItemPacket(ServerboundPickItemFromBlockPacket serverboundPickItemFromBlockPacket, CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.05f) {
 				ci.cancel();
 			}
@@ -188,7 +188,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onPickItemPacket(ServerboundPickItemFromEntityPacket serverboundPickItemFromEntityPacket, CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.05f) {
 				ci.cancel();
 			}
@@ -209,7 +209,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onVehicleMovementPacket(ServerboundMoveVehiclePacket packet, CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.3f) {
 				ci.cancel();
 			}
@@ -230,7 +230,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onInventoryClick(CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.3f) {
 				ci.cancel();
 			}
@@ -251,7 +251,7 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onPingRequest(CallbackInfo ci) {
-		if (ConnectionManager.INSTANCE.shouldManage(player.getUUID())) {
+		if (ConnectionManager.shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.3f) {
 				ci.cancel();
 			}

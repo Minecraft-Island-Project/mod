@@ -1,14 +1,14 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 package com.macuguita.island.common.reg
 
-import com.macuguita.island.common.CommonEntrypoint
+import com.macuguita.island.common.Island
 import com.macuguita.island.common.block.DeskBlock
 import com.macuguita.island.common.block.ResizableBeamBlock
-import com.macuguita.island.common.util.StrippedWood
 import com.macuguita.island.common.util.Wood
+import com.macuguita.island.common.util.WoodSet
 import com.macuguita.island.common.util.WoodType
 import com.macuguita.island.mixin.FireBlockAccessor
 import com.macuguita.lib.platform.registry.GuitaRegistries
@@ -27,22 +27,25 @@ import net.minecraft.world.level.block.state.BlockBehaviour
 
 object IslandObjects {
 
-    val BLOCKS = GuitaRegistries.create(BuiltInRegistries.BLOCK, CommonEntrypoint.MOD_ID)
-    val BLOCK_ITEMS = GuitaRegistries.create(BuiltInRegistries.ITEM, CommonEntrypoint.MOD_ID)
-    val ITEMS = GuitaRegistries.create(BuiltInRegistries.ITEM, CommonEntrypoint.MOD_ID)
+    val BLOCKS: GuitaRegistry<Block> = GuitaRegistries.create(BuiltInRegistries.BLOCK, Island.MOD_ID)
+    val BLOCK_ITEMS: GuitaRegistry<Item> = GuitaRegistries.create(BuiltInRegistries.ITEM, Island.MOD_ID)
+    val ITEMS: GuitaRegistry<Item> = GuitaRegistries.create(BuiltInRegistries.ITEM, Island.MOD_ID)
 
-    val BEAMS = GuitaRegistries.create(BLOCKS)
+    val FURNITURE: GuitaRegistry<Block> = GuitaRegistries.create(BLOCKS)
 
-    val WOOD_MAP = mutableMapOf<Block, Wood>()
-    val STRIPPED_WOOD_MAP = mutableMapOf<Block, StrippedWood>()
-    val COMBINED_WOOD_MAP: Map<Block, WoodType> by lazy { WOOD_MAP + STRIPPED_WOOD_MAP }
+    val WOODS: GuitaRegistry<Block> = GuitaRegistries.create(BLOCKS)
+    val BEAMS: GuitaRegistry<Block> = GuitaRegistries.create(WOODS)
+
+    val BLOCK_TO_WOOD = mutableMapOf<Block, WoodType>()
+    val WOOD_SETS = mutableMapOf<WoodType, WoodSet>()
 
     /*------------------------*/
     /* BLOCKS & ITEMS         */
     /*------------------------*/
 
-    val SMALL_LOG_OAK_TABLE = registerWithItem("small_log_oak_table", ::Block)
-    val DESK = registerWithItem("desk", ::DeskBlock)
+    val SECATEURS = registerItem("secateurs", ::Item)
+    val SMALL_LOG_OAK_TABLE = registerWithItem("small_log_oak_table", ::Block, blockReg = FURNITURE)
+    val DESK = registerWithItem("desk", ::DeskBlock, blockReg = FURNITURE)
 
     private fun <T : Block> registerWithItem(
         name: String,
@@ -66,16 +69,16 @@ object IslandObjects {
     private fun <T : Item> registerItem(
         name: String,
         itemFactory: (Item.Properties) -> T,
-        properties: Item.Properties,
+        properties: Item.Properties = Item.Properties(),
         itemReg: GuitaRegistry<Item> = ITEMS
     ): GuitaRegistryEntry<T> = itemReg.register(name) { itemFactory(properties.setId(keyOfItem(name))) }
 
     private fun keyOfBlock(name: String): ResourceKey<Block> =
-        ResourceKey.create(Registries.BLOCK, CommonEntrypoint.id(name))
+        ResourceKey.create(Registries.BLOCK, Island.id(name))
 
 
     private fun keyOfItem(name: String): ResourceKey<Item> =
-        ResourceKey.create(Registries.ITEM, CommonEntrypoint.id(name))
+        ResourceKey.create(Registries.ITEM, Island.id(name))
 
     fun init() {
         BLOCKS.init()
@@ -86,9 +89,15 @@ object IslandObjects {
             val strippedBeam =
                 registerWithItem("${w.getStripped().blockName}_beam", ::ResizableBeamBlock, blockReg = BEAMS)
             ResizableBeamBlock.STRIPPED_BEAM_BLOCKS[beam.get()] = strippedBeam.get()
-            // change to wood set maybe
-            WOOD_MAP[beam.get()] = w
-            STRIPPED_WOOD_MAP[strippedBeam.get()] = w.getStripped()
+            BLOCK_TO_WOOD[beam.get()] = w
+            BLOCK_TO_WOOD[strippedBeam.get()] = w.getStripped()
+
+            WOOD_SETS[w] = WoodSet(
+                beam = beam.get()
+            )
+            WOOD_SETS[w.getStripped()] = WoodSet(
+                beam = strippedBeam.get()
+            )
 
             if (w.burns()) {
                 FuelRegistryEvents.BUILD.register(FuelRegistryEvents.BuildCallback { builder, _ ->

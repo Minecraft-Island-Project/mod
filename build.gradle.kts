@@ -2,7 +2,6 @@ plugins {
 	id("net.fabricmc.fabric-loom-remap").version("1.14-SNAPSHOT")
 	id("maven-publish")
     id("org.jetbrains.kotlin.jvm").version("2.2.21")
-    kotlin("plugin.serialization") version "2.3.0"
 }
 
 loom {
@@ -56,6 +55,7 @@ repositories {
         Triple("TerraformersMC", "https://maven.terraformersmc.com/", listOf("com.terraformersmc", "dev.emi")),
         Triple("Modrinth", "https://api.modrinth.com/maven", listOf("maven.modrinth")),
         Triple("ParchmentMC", "https://maven.parchmentmc.org", listOf("org.parchmentmc.data")),
+        Triple("Sleeping town", "https://repo.sleeping.town/", listOf("folk.sisby")),
     )
 
     exclusiveRepos.forEach { (name, url, groups) ->
@@ -91,8 +91,11 @@ dependencies {
 
     modImplementation("maven.modrinth:macu-lib:${BuildConfig.maculibVersion}-${BuildConfig.minecraftVersion}-fabric"){
         exclude("net.fabricmc.fabric-api")
+        include("maven.modrinth:macu-lib:${BuildConfig.maculibVersion}-${BuildConfig.minecraftVersion}-fabric")
     }
-    include("maven.modrinth:macu-lib:${BuildConfig.maculibVersion}-${BuildConfig.minecraftVersion}-fabric")
+
+    implementation("folk.sisby:kaleido-config:0.3.3+1.3.2")
+    include("folk.sisby:kaleido-config:0.3.3+1.3.2")
 }
 
 tasks.register<net.fabricmc.loom.task.FabricModJsonV1Task>("genModJson") {
@@ -123,7 +126,7 @@ tasks.register<net.fabricmc.loom.task.FabricModJsonV1Task>("genModJson") {
         }
         environment = "*"
 
-        entrypoint("main", "com.macuguita.island.common.CommonEntrypoint", "kotlin")
+        entrypoint("main", "com.macuguita.island.common.Island", "kotlin")
         entrypoint("client", "com.macuguita.island.client.ClientEntrypoint", "kotlin")
         entrypoint("server", "com.macuguita.island.server.ServerEntrypoint", "kotlin")
         entrypoint("fabric-datagen", "com.macuguita.island.datagen.DatagenEntrypoint", "kotlin")

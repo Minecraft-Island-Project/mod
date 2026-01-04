@@ -1,14 +1,16 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 package com.macuguita.island.common
 
 import com.macuguita.island.common.block.ResizableBeamBlock
+import com.macuguita.island.common.commands.CommandRegistrator
 import com.macuguita.island.common.reg.IslandCreativeModeTabs
 import com.macuguita.island.common.reg.IslandItemTags
 import com.macuguita.island.common.reg.IslandObjects
 import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.player.UseBlockCallback
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
 import net.minecraft.resources.Identifier
@@ -17,7 +19,7 @@ import net.minecraft.world.InteractionResult
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-object CommonEntrypoint : ModInitializer {
+object Island : ModInitializer {
 
     const val MOD_ID: String = "island"
     val LOGGER: Logger = LoggerFactory.getLogger(MOD_ID)
@@ -48,5 +50,6 @@ object CommonEntrypoint : ModInitializer {
 
             InteractionResult.PASS
         }
+        CommandRegistrationCallback.EVENT.register(CommandRegistrator.RegisterCommands())
     }
 }

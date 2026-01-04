@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2026 macuguita. All Rights Reserved.
+ */
+
 package com.macuguita.island.datagen
 
 import com.macuguita.island.common.reg.IslandObjects

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2026 macuguita. All Rights Reserved.
+ */
+
 package com.macuguita.island.common.util
 
 import net.minecraft.world.level.block.Block

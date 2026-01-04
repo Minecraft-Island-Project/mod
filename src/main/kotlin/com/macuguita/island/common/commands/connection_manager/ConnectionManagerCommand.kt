@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
-package com.macuguita.island.server.commands.connection_manager
+package com.macuguita.island.common.commands.connection_manager
 
+import com.macuguita.island.common.commands.CommandRegistrator
+import com.macuguita.island.common.commands.CommandResult
 import com.macuguita.island.server.admin.ConnectionManager
-import com.macuguita.island.server.commands.CommandRegistrator
-import com.macuguita.island.server.commands.CommandResult
 import com.mojang.brigadier.CommandDispatcher
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands.*

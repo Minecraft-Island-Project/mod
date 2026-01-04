@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 @file:Suppress("UnstableApiUsage")
 
 package com.macuguita.island.common.attachments
 
-import com.macuguita.island.common.CommonEntrypoint.id
+import com.macuguita.island.common.Island.id
 import com.mojang.serialization.Codec
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget

@@ -24,7 +24,7 @@
     ],
     "main": [
       {
-        "value": "com.macuguita.island.common.CommonEntrypoint",
+        "value": "com.macuguita.island.common.Island",
         "adapter": "kotlin"
       }
     ]

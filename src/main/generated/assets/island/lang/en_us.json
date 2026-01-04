@@ -25,5 +25,7 @@
   "block.island.stripped_spruce_beam": "Stripped Spruce Beam",
   "block.island.stripped_warped_beam": "Stripped Warped Beam",
   "block.island.warped_beam": "Warped Beam",
-  "creative_tab.island.island": "Furniture"
+  "creative_tab.island.furniture": "Furniture",
+  "creative_tab.island.woods": "Woods",
+  "item.island.secateurs": "Secateurs"
 }

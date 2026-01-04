@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2026 macuguita. All Rights Reserved.
+ */
+
 package com.macuguita.island.common.block
 
 import com.macuguita.island.common.reg.IslandBlockTags
@@ -310,7 +314,7 @@ class ResizableBeamBlock(properties: Properties, val strippable: Boolean) : Bloc
             )
         }
 
-        val facingShapes = Array<VoxelShape>(64) { Shapes.empty() }
+        val facingShapes = Array(64) { Shapes.empty() }
 
         for (mask in 0..63) {
             var shape = centerShape

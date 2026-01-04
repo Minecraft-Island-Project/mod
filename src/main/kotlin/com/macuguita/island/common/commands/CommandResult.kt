@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
-package com.macuguita.island.server.commands
+package com.macuguita.island.common.commands
 
 enum class CommandResult(val value: Int) {
     SUCCESS(1),

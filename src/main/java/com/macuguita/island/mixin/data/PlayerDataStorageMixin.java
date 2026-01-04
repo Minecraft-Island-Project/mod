@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 macuguita. All Rights Reserved.
+ * Copyright (c) 2025-2026 macuguita. All Rights Reserved.
  */
 
 package com.macuguita.island.mixin.data;
@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-import com.macuguita.island.common.CommonEntrypoint;
+import com.macuguita.island.common.Island;
 import com.macuguita.island.injected_interfaces.CustomPlayerDataStorage;
 import com.mojang.datafixers.DataFixer;
 import com.mojang.serialization.DataResult;
@@ -81,11 +81,11 @@ public class PlayerDataStorageMixin implements CustomPlayerDataStorage {
 			if (file.exists() && file.isFile()) {
 				tag = NbtIo.readCompressed(file.toPath(), NbtAccounter.unlimitedHeap());
 			} else {
-				CommonEntrypoint.INSTANCE.getLOGGER().error("Player data file for " + uuid + " does not exist");
+				Island.INSTANCE.getLOGGER().error("Player data file for {} does not exist", uuid);
 				return null;
 			}
 		} catch (Exception var4) {
-			CommonEntrypoint.INSTANCE.getLOGGER().error("Failed to load player data for " + uuid);
+			Island.INSTANCE.getLOGGER().error("Failed to load player data for {}", uuid);
 			return null;
 		}
 
