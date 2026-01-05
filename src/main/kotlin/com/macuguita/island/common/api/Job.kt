@@ -15,6 +15,7 @@ abstract class Job(val id: Identifier) {
     protected val activePlayers = mutableSetOf<UUID>()
 
     fun start(player: ServerPlayer) {
+        if (player.level().isClientSide) return
         if (activePlayers.contains(player.uuid)) {
             return
         }
@@ -23,6 +24,7 @@ abstract class Job(val id: Identifier) {
     }
 
     fun end(player: ServerPlayer) {
+        if (player.level().isClientSide) return
         if (!activePlayers.contains(player.uuid)) {
             return
         }

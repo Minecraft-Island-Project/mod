@@ -4,6 +4,7 @@
 
 package com.macuguita.island.common.job.ice_cream
 
+import com.macuguita.island.common.Island
 import com.macuguita.island.common.api.Job
 import com.macuguita.island.common.attachments.SavedInventory
 import com.macuguita.island.common.data_components.IceCreamComponent
@@ -12,12 +13,10 @@ import com.macuguita.island.common.network.s2c.IceCreamSyncOrdersS2CPacket
 import com.macuguita.island.common.reg.IslandDataComponents
 import com.macuguita.island.common.reg.IslandItemTags
 import com.macuguita.island.common.reg.IslandObjects
-import com.macuguita.island.common.util.ObservableList
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import java.util.*
 
@@ -27,6 +26,8 @@ class IceCreamJob(id: Identifier) : Job(id) {
     private var ordersDirty = false
 
     private val random = Random()
+    private var ticksSinceLastOrder = 0
+    private val minTicksBetweenOrders = 7 * 20
 
     private fun addOrder(order: IceCreamComponent) {
         orders.add(order)
@@ -43,11 +44,13 @@ class IceCreamJob(id: Identifier) : Job(id) {
 
     private fun syncOrdersToAllPlayers(serverLevel: ServerLevel) {
         JobTicker.forEachActiveJob { uuid, job ->
-            if (job === this) {
-                val player = serverLevel.getPlayerByUUID(uuid) as? ServerPlayer
-                if (player != null) {
-                    syncOrders(player)
-                }
+            if (job == id) {
+                Island.LOGGER.info("======== TRYING TO SYNC TO PLAYER WITH UUID: ${uuid} ========")
+                serverLevel.server.playerList.players.filter { JobTicker.getJob(it)?.id == id }
+                    .forEach { player ->
+                        Island.LOGGER.info("======== SYNCED TO PLAYER WITH UUID: ${uuid} AND NAME: ${player.name.string} ========")
+                        syncOrders(player)
+                    }
             }
         }
     }
@@ -60,8 +63,11 @@ class IceCreamJob(id: Identifier) : Job(id) {
     }
 
     override fun tickServer(serverLevel: ServerLevel) {
-        if (orders.size < 10 && random.nextInt(200) == 0) {
+        ticksSinceLastOrder++
+
+        if (orders.size < 10 && ticksSinceLastOrder >= minTicksBetweenOrders) {
             addOrder(generateRandomOrder())
+            ticksSinceLastOrder = 0
         }
 
         if (ordersDirty) {

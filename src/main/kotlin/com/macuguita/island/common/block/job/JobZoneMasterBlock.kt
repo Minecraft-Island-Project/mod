@@ -58,7 +58,7 @@ class JobZoneMasterBlock(
         if (blockEntity is JobZoneMasterBlockEntity) {
             blockEntity.tick(level)
         }
-        level.scheduleTick(pos, this, 5)
+        level.scheduleTick(pos, this, 1)
     }
 
     override fun onPlace(
@@ -69,7 +69,7 @@ class JobZoneMasterBlock(
         moved: Boolean
     ) {
         if (!level.isClientSide) {
-            level.scheduleTick(pos, this, 20)
+            level.scheduleTick(pos, this, 1)
         }
         super.onPlace(state, level, pos, oldState, moved)
     }

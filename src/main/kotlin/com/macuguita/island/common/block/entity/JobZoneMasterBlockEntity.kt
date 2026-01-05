@@ -125,29 +125,28 @@ class JobZoneMasterBlockEntity(
             p.boundingBox.intersects(zoneAABB)
         }
 
-        val expectedJob = IslandJobs.JOBS[jobId]
+        IslandJobs.JOBS[jobId] ?: return
 
-        if (expectedJob != null) {
-            for (player in playersInZone) {
-                val activeJob = JobTicker.getJob(player)
-                if (activeJob !== expectedJob) {
-                    JobTicker.startJob(player, expectedJob)
-                }
+        for (player in playersInZone) {
+            val activeJob = JobTicker.getJob(player)
+            if (activeJob?.id != jobId) {
+                JobTicker.startJob(player, jobId)
             }
+        }
 
-            JobTicker.forEachActiveJob { uuid, job ->
-                if (job === expectedJob) {
-                    val player = serverLevel.getPlayerByUUID(uuid)
-                    if (player is ServerPlayer) {
-                        val isOutsideZone = !player.boundingBox.intersects(zoneAABB.inflate(0.5))
-                        if (isOutsideZone) {
-                            JobTicker.requestEndJob(player)
-                        }
+        JobTicker.forEachActiveJob { uuid, activeJobId ->
+            if (activeJobId == jobId) {
+                val player = serverLevel.getPlayerByUUID(uuid)
+                if (player is ServerPlayer) {
+                    val isOutsideZone = !player.boundingBox.intersects(zoneAABB.inflate(0.5))
+                    if (isOutsideZone) {
+                        JobTicker.requestEndJob(player)
                     }
                 }
             }
         }
     }
+
 
     private fun calculateZoneAABB(): AABB {
         val startPos = blockPos.offset(zonePos)
