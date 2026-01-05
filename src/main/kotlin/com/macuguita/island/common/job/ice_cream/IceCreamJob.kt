@@ -77,6 +77,7 @@ class IceCreamJob(id: Identifier) : Job(id) {
 
     override fun startJob(player: ServerPlayer) {
         syncOrders(player)
+        //TODO: when the server restarts and you rejoin the isWorkingFlag seems to not care or something, probably needs fixing
         val savedInventoryComponent = SavedInventory[player]
         if (savedInventoryComponent.isWorking) return
         savedInventoryComponent.saveInventory(player.inventory)
