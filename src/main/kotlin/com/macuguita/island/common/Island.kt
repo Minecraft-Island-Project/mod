@@ -8,16 +8,23 @@ import com.macuguita.island.client.job.gui.JobZoneMasterScreen
 import com.macuguita.island.common.block.ResizableBeamBlock
 import com.macuguita.island.common.block.entity.JobZoneMasterBlockEntity
 import com.macuguita.island.common.commands.CommandRegistrator
+import com.macuguita.island.common.data_components.IceCreamComponent
+import com.macuguita.island.common.item.IceCreamConeItem
 import com.macuguita.island.common.job.JobTicker
-import com.macuguita.island.common.network.JobZoneUpdateC2SPacket
+import com.macuguita.island.common.network.cs2.JobZoneUpdateC2SPacket
+import com.macuguita.island.common.network.s2c.IceCreamSyncOrdersS2CPacket
 import com.macuguita.island.common.reg.*
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.player.UseBlockCallback
+import net.fabricmc.fabric.api.event.player.UseItemCallback
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
 import net.minecraft.client.Minecraft
+import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.Identifier
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.InteractionResult
@@ -52,7 +59,8 @@ object Island : ModInitializer {
         IslandDataComponents.init()
         JobTicker.init()
 
-        PayloadTypeRegistry.playC2S().register(JobZoneUpdateC2SPacket.ID, JobZoneUpdateC2SPacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(JobZoneUpdateC2SPacket.ID, JobZoneUpdateC2SPacket.CODEC)
+        PayloadTypeRegistry.playS2C().register(IceCreamSyncOrdersS2CPacket.ID, IceCreamSyncOrdersS2CPacket.CODEC)
 
         ServerPlayNetworking.registerGlobalReceiver(
             JobZoneUpdateC2SPacket.ID,
@@ -79,6 +87,15 @@ object Island : ModInitializer {
                 }
             }
         )
+
+        UseItemCallback.EVENT.register { player, level, hand ->
+            val item = player.getItemInHand(hand)
+            if (item.item is IceCreamConeItem && item.`is`(IslandItemTags.ICE_CREAM_HOLDER)) {
+                IceCreamConeItem.onIceCreamConeActivation(player, level, hand)
+            }
+
+            InteractionResult.PASS
+        }
 
         UseBlockCallback.EVENT.register { player, level, hand, hitResult ->
             val pos = hitResult.blockPos

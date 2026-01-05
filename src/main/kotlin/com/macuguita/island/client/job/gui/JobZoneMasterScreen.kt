@@ -1,7 +1,7 @@
 package com.macuguita.island.client.job.gui
 
 import com.macuguita.island.common.block.entity.JobZoneMasterBlockEntity
-import com.macuguita.island.common.network.JobZoneUpdateC2SPacket
+import com.macuguita.island.common.network.cs2.JobZoneUpdateC2SPacket
 import com.macuguita.island.common.reg.IslandJobs
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.minecraft.client.gui.GuiGraphics

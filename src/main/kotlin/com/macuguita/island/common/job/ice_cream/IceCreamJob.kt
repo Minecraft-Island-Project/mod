@@ -6,25 +6,44 @@ package com.macuguita.island.common.job.ice_cream
 
 import com.macuguita.island.common.api.Job
 import com.macuguita.island.common.attachments.SavedInventory
-import com.macuguita.island.common.attachments.SavedInventoryAttachedData
 import com.macuguita.island.common.data_components.IceCreamComponent
 import com.macuguita.island.common.job.JobTicker
+import com.macuguita.island.common.network.s2c.IceCreamSyncOrdersS2CPacket
 import com.macuguita.island.common.reg.IslandDataComponents
 import com.macuguita.island.common.reg.IslandItemTags
 import com.macuguita.island.common.reg.IslandObjects
+import com.macuguita.island.common.util.ObservableList
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import java.util.*
 
 class IceCreamJob(id: Identifier) : Job(id) {
 
-    val orders: MutableList<IceCreamComponent> = Collections.synchronizedList(mutableListOf())
+    private var cachedServerLevel: ServerLevel? = null
+
+    val orders: ObservableList<IceCreamComponent> = ObservableList(Collections.synchronizedList(mutableListOf())) {
+        cachedServerLevel?.let { syncOrdersToAllPlayers(it) }
+    }
 
     private val random = Random()
+
+    private fun syncOrders(player: ServerPlayer, list: List<IceCreamComponent> = orders.toList()) =
+        ServerPlayNetworking.send(player, IceCreamSyncOrdersS2CPacket(list))
+
+    private fun syncOrdersToAllPlayers(serverLevel: ServerLevel) {
+        JobTicker.forEachActiveJob { uuid, job ->
+            if (job === this) {
+                val player = serverLevel.getPlayerByUUID(uuid) as? ServerPlayer
+                if (player != null) {
+                    syncOrders(player)
+                }
+            }
+        }
+    }
 
     fun tickCommon() {
     }
@@ -34,6 +53,7 @@ class IceCreamJob(id: Identifier) : Job(id) {
     }
 
     override fun tickServer(serverLevel: ServerLevel) {
+        cachedServerLevel = serverLevel
         tickCommon()
         if (orders.count() >= 10) return
         if (random.nextInt(200) == 0) {
@@ -42,6 +62,7 @@ class IceCreamJob(id: Identifier) : Job(id) {
     }
 
     override fun startJob(player: ServerPlayer) {
+        syncOrders(player)
         val savedInventoryComponent = SavedInventory[player]
         if (savedInventoryComponent.isWorking) return
         savedInventoryComponent.saveInventory(player.inventory)
@@ -60,6 +81,7 @@ class IceCreamJob(id: Identifier) : Job(id) {
         player.inventory.clearContent()
         SavedInventory[player].loadInventory(player.inventory)
         player.inventory.setChanged()
+        syncOrders(player, emptyList())
     }
 
     fun submitIceCream(player: Player, itemStack: ItemStack): Boolean {

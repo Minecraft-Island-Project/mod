@@ -37,6 +37,7 @@ class IslandLanguageProvider(
         }
         translationBuilder.add("job_zone_master.title", "Job Zone Master")
         translationBuilder.add("job_zone_master.job", "Job")
+        translationBuilder.add("tooltip.ice_cream_holder_item", "Shift-Click to clean the cone")
     }
 
     private fun capitalizeString(string: String): String {

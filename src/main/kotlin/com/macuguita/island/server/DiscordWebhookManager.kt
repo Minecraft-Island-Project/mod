@@ -24,7 +24,13 @@ class DiscordWebhookManager(
         .build()
 
     private val webhookUri: URI? = try {
-        URI(discordConfig.discordWebhookUrl)
+        val uri = URI(discordConfig.discordWebhookUrl)
+        if (uri.scheme == "http" || uri.scheme == "https") {
+            uri
+        } else {
+            Island.LOGGER.error("Invalid Discord webhook URL scheme: ${uri.scheme}. Must be http or https.")
+            null
+        }
     } catch (e: Exception) {
         Island.LOGGER.error("Invalid Discord webhook URL: ${discordConfig.discordWebhookUrl}", e)
         null

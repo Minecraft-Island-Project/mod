@@ -9,6 +9,9 @@ import com.macuguita.island.common.job.ice_cream.IceCreamFlavour
 import com.macuguita.island.common.job.ice_cream.IceCreamTopping
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.network.codec.StreamCodec
 import java.util.*
 
 @JvmRecord
@@ -41,6 +44,25 @@ data class IceCreamComponent(
                 IceCreamComponent(first, second.orNull(), third.orNull(), topping.orNull())
             }
         }
+
+        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, IceCreamComponent> =
+            StreamCodec.composite(
+                IceCreamFlavour.STREAM_CODEC,
+                IceCreamComponent::firstFlavour,
+
+                ByteBufCodecs.optional(IceCreamFlavour.STREAM_CODEC),
+                { Optional.ofNullable(it.secondFlavour) },
+
+                ByteBufCodecs.optional(IceCreamFlavour.STREAM_CODEC),
+                { Optional.ofNullable(it.thirdFlavour) },
+
+                ByteBufCodecs.optional(IceCreamTopping.STREAM_CODEC),
+                { Optional.ofNullable(it.topping) },
+
+                { first, second, third, topping ->
+                    IceCreamComponent(first, second.orElse(null), third.orElse(null), topping.orElse(null))
+                }
+            )
 
         @JvmStatic
         fun fromList(flavours: List<IceCreamFlavour>, topping: IceCreamTopping? = null): IceCreamComponent {

@@ -12,7 +12,7 @@ import java.util.UUID
 
 abstract class Job(val id: Identifier) {
 
-    private val activePlayers = mutableSetOf<UUID>()
+    protected val activePlayers = mutableSetOf<UUID>()
 
     fun start(player: ServerPlayer) {
         if (activePlayers.contains(player.uuid)) {

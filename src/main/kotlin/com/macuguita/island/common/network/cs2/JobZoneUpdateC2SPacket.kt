@@ -1,4 +1,4 @@
-package com.macuguita.island.common.network
+package com.macuguita.island.common.network.cs2
 
 import com.macuguita.island.common.Island
 import net.minecraft.core.BlockPos
@@ -8,7 +8,6 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.resources.Identifier
-
 
 data class JobZoneUpdateC2SPacket(
     val blockPos: BlockPos,
@@ -22,10 +21,6 @@ data class JobZoneUpdateC2SPacket(
         val JOB_ZONE_UPDATE_ID = Island.id("job_zone_update")
         val ID = CustomPacketPayload.Type<JobZoneUpdateC2SPacket>(JOB_ZONE_UPDATE_ID)
 
-        val BOOLEAN_CODEC: StreamCodec<RegistryFriendlyByteBuf, Boolean> = StreamCodec.of(
-            { buf, value -> buf.writeBoolean(value) },
-            { buf -> buf.readBoolean() }
-        )
         val CODEC: StreamCodec<RegistryFriendlyByteBuf, JobZoneUpdateC2SPacket> =
             StreamCodec.composite(
                 BlockPos.STREAM_CODEC,
@@ -45,4 +40,3 @@ data class JobZoneUpdateC2SPacket(
     override fun type(): CustomPacketPayload.Type<out CustomPacketPayload> = ID
 
 }
-

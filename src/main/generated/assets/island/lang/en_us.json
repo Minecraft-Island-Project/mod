@@ -36,5 +36,6 @@
   "item.island.ice_cream_cup": "Ice Cream Cup",
   "item.island.secateurs": "Secateurs",
   "job_zone_master.job": "Job",
-  "job_zone_master.title": "Job Zone Master"
+  "job_zone_master.title": "Job Zone Master",
+  "tooltip.ice_cream_holder_item": "Shift-Click to clean the cone"
 }

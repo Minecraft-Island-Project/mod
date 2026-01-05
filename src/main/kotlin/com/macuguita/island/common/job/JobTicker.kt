@@ -5,8 +5,10 @@
 package com.macuguita.island.common.job
 
 import com.macuguita.island.common.api.Job
+import net.fabricmc.api.EnvType
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
@@ -22,8 +24,10 @@ object JobTicker {
             tickServer(serverLevel)
             flushEndedJobs(serverLevel)
         }
-        ClientTickEvents.END_CLIENT_TICK.register { _ ->
-            tickClient()
+        if (FabricLoader.getInstance().environmentType == EnvType.CLIENT) {
+            ClientTickEvents.END_CLIENT_TICK.register { _ ->
+                tickClient()
+            }
         }
     }
 
