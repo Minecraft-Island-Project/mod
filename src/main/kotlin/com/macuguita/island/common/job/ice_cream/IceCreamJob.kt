@@ -23,13 +23,20 @@ import java.util.*
 
 class IceCreamJob(id: Identifier) : Job(id) {
 
-    private var cachedServerLevel: ServerLevel? = null
-
-    val orders: ObservableList<IceCreamComponent> = ObservableList(Collections.synchronizedList(mutableListOf())) {
-        cachedServerLevel?.let { syncOrdersToAllPlayers(it) }
-    }
+    val orders: MutableList<IceCreamComponent> = mutableListOf()
+    private var ordersDirty = false
 
     private val random = Random()
+
+    private fun addOrder(order: IceCreamComponent) {
+        orders.add(order)
+        ordersDirty = true
+    }
+
+    private fun removeOrder(order: IceCreamComponent) {
+        orders.remove(order)
+        ordersDirty = true
+    }
 
     private fun syncOrders(player: ServerPlayer, list: List<IceCreamComponent> = orders.toList()) =
         ServerPlayNetworking.send(player, IceCreamSyncOrdersS2CPacket(list))
@@ -53,11 +60,13 @@ class IceCreamJob(id: Identifier) : Job(id) {
     }
 
     override fun tickServer(serverLevel: ServerLevel) {
-        cachedServerLevel = serverLevel
-        tickCommon()
-        if (orders.count() >= 10) return
-        if (random.nextInt(200) == 0) {
-            orders.add(generateRandomOrder())
+        if (orders.size < 10 && random.nextInt(200) == 0) {
+            addOrder(generateRandomOrder())
+        }
+
+        if (ordersDirty) {
+            syncOrdersToAllPlayers(serverLevel)
+            ordersDirty = false
         }
     }
 
@@ -84,7 +93,7 @@ class IceCreamJob(id: Identifier) : Job(id) {
         syncOrders(player, emptyList())
     }
 
-    fun submitIceCream(player: Player, itemStack: ItemStack): Boolean {
+    fun submitIceCream(player: ServerPlayer, itemStack: ItemStack): Boolean {
 
         val iceCream = itemStack.get(IslandDataComponents.ICE_CREAM_COMPONENT.get())!!
         val item = itemStack.item
@@ -101,7 +110,7 @@ class IceCreamJob(id: Identifier) : Job(id) {
             player.inventory.setItem(1, ItemStack(item))
         player.inventory.setChanged()
 
-        orders.remove(order)
+        removeOrder(order)
 
         return true
     }
