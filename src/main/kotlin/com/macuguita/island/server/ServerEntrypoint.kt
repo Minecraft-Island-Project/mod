@@ -4,6 +4,8 @@
 
 package com.macuguita.island.server
 
+import com.macuguita.island.common.Config
+import com.macuguita.island.common.Island
 import com.macuguita.island.common.attachments.JoinedServer
 import com.macuguita.island.server.admin.ConnectionManager
 import folk.sisby.kaleido.api.WrappedConfig
@@ -18,9 +20,6 @@ import net.minecraft.network.chat.Component
 
 object ServerEntrypoint : DedicatedServerModInitializer {
 
-    val CONFIG: ServerConfig =
-        WrappedConfig.createToml(FabricLoader.getInstance().configDir, "island", "server", ServerConfig::class.java)
-
     override fun onInitializeServer() {
         ServerWorldEvents.LOAD.register { server, _ -> ConnectionManager.init(server) }
         ServerPlayConnectionEvents.JOIN.register { handler, _, server ->
@@ -28,7 +27,7 @@ object ServerEntrypoint : DedicatedServerModInitializer {
             val attachedData = JoinedServer[player]
             if (!attachedData.joinedServer) {
                 server.playerList.broadcastSystemMessage(
-                    Component.literal(String.format(CONFIG.greetingMessage, player.name.string))
+                    Component.literal(String.format(Island.CONFIG.server.greetingMessage, player.name.string))
                         .withStyle(ChatFormatting.YELLOW), false
                 )
                 attachedData.markJoined()

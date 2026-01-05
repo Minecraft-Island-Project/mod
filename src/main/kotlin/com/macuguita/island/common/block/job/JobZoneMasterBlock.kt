@@ -5,18 +5,17 @@
 package com.macuguita.island.common.block.job
 
 
-import com.macuguita.island.common.Island
 import com.macuguita.island.common.block.entity.JobZoneMasterBlockEntity
+import com.macuguita.island.common.reg.IslandBlockEntities
 import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
-import net.minecraft.resources.Identifier
-import net.minecraft.server.level.ServerLevel
-import net.minecraft.util.RandomSource
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.BaseEntityBlock
 import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.entity.BlockEntityTicker
+import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.BlockHitResult
 
@@ -48,29 +47,15 @@ class JobZoneMasterBlock(
         return InteractionResult.PASS
     }
 
-    override fun tick(
-        state: BlockState,
-        level: ServerLevel,
-        pos: BlockPos,
-        random: RandomSource
-    ) {
-        val blockEntity = level.getBlockEntity(pos)
-        if (blockEntity is JobZoneMasterBlockEntity) {
-            blockEntity.tick(level)
-        }
-        level.scheduleTick(pos, this, 1)
+    override fun <T : BlockEntity> getTicker(
+        level: Level,
+        blockState: BlockState,
+        blockEntityType: BlockEntityType<T>
+    ): BlockEntityTicker<T>? {
+        return if (level.isClientSide) null else createTickerHelper(
+            blockEntityType,
+            IslandBlockEntities.JOB_ZONE_MASTER_BLOCK_ENTITY.get(),
+            JobZoneMasterBlockEntity::serverTick)
     }
 
-    override fun onPlace(
-        state: BlockState,
-        level: Level,
-        pos: BlockPos,
-        oldState: BlockState,
-        moved: Boolean
-    ) {
-        if (!level.isClientSide) {
-            level.scheduleTick(pos, this, 1)
-        }
-        super.onPlace(state, level, pos, oldState, moved)
-    }
 }

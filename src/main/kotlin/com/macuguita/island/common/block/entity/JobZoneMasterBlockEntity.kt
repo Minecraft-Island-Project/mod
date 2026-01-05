@@ -15,12 +15,13 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.GameMasterBlock
 import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.storage.ValueInput
 import net.minecraft.world.level.storage.ValueOutput
 import net.minecraft.world.phys.AABB
@@ -33,6 +34,49 @@ class JobZoneMasterBlockEntity(
 
     companion object {
         private const val MAX_SIZE = 48
+
+        @JvmStatic
+        fun serverTick(level: Level, blockPos: BlockPos, blockState: BlockState, jobZoneMasterBlockEntity: JobZoneMasterBlockEntity) {
+            if (level !is ServerLevel)
+                return
+            val jobId = jobZoneMasterBlockEntity.jobId
+            val zoneAABB = calculateZoneAABB(blockPos, jobZoneMasterBlockEntity.zonePos, jobZoneMasterBlockEntity.zoneSize)
+            val playersInZone = level.getPlayers { p ->
+                p.boundingBox.intersects(zoneAABB)
+            }
+
+            IslandJobs.JOBS[jobId] ?: return
+
+            for (player in playersInZone) {
+                val activeJob = JobTicker.getJob(player)
+                if (activeJob?.id != jobId) {
+                    JobTicker.startJob(player, jobId)
+                }
+            }
+
+            JobTicker.forEachActiveJob { uuid, activeJobId ->
+                if (activeJobId == jobId) {
+                    val player = level.server.playerList.players.first { it.uuid == uuid }
+                    val isOutsideZone = !player.boundingBox.intersects(zoneAABB.inflate(0.5))
+                    if (isOutsideZone) {
+                        JobTicker.requestEndJob(player)
+                    }
+                }
+            }
+        }
+
+        @JvmStatic
+        private fun calculateZoneAABB(blockPos: BlockPos, zonePos: BlockPos, zoneSize: Vec3i): AABB {
+            val startPos = blockPos.offset(zonePos)
+            return AABB(
+                startPos.x.toDouble(),
+                startPos.y.toDouble(),
+                startPos.z.toDouble(),
+                (startPos.x + zoneSize.x).toDouble(),
+                (startPos.y + zoneSize.y).toDouble(),
+                (startPos.z + zoneSize.z).toDouble()
+            )
+        }
     }
 
     var jobId: Identifier = IslandJobs.ICE_CREAM_ID
@@ -117,46 +161,5 @@ class JobZoneMasterBlockEntity(
         }
 
         return true
-    }
-
-    fun tick(serverLevel: ServerLevel) {
-        val zoneAABB = calculateZoneAABB()
-        val playersInZone = serverLevel.getPlayers { p ->
-            p.boundingBox.intersects(zoneAABB)
-        }
-
-        IslandJobs.JOBS[jobId] ?: return
-
-        for (player in playersInZone) {
-            val activeJob = JobTicker.getJob(player)
-            if (activeJob?.id != jobId) {
-                JobTicker.startJob(player, jobId)
-            }
-        }
-
-        JobTicker.forEachActiveJob { uuid, activeJobId ->
-            if (activeJobId == jobId) {
-                val player = serverLevel.getPlayerByUUID(uuid)
-                if (player is ServerPlayer) {
-                    val isOutsideZone = !player.boundingBox.intersects(zoneAABB.inflate(0.5))
-                    if (isOutsideZone) {
-                        JobTicker.requestEndJob(player)
-                    }
-                }
-            }
-        }
-    }
-
-
-    private fun calculateZoneAABB(): AABB {
-        val startPos = blockPos.offset(zonePos)
-        return AABB(
-            startPos.x.toDouble(),
-            startPos.y.toDouble(),
-            startPos.z.toDouble(),
-            (startPos.x + zoneSize.x).toDouble(),
-            (startPos.y + zoneSize.y).toDouble(),
-            (startPos.z + zoneSize.z).toDouble()
-        )
     }
 }

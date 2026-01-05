@@ -5,6 +5,7 @@
 package com.macuguita.island.server
 
 import com.macuguita.island.common.Island
+import com.macuguita.island.common.Config
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -16,7 +17,7 @@ import java.net.http.HttpResponse
 import java.time.Duration
 
 class DiscordWebhookManager(
-    val discordConfig: ServerConfig.Discord = ServerEntrypoint.CONFIG.discord,
+    val discordConfig: Config.Server.Discord = Island.CONFIG.server.discord,
 ) {
 
     private val httpClient = HttpClient.newBuilder()

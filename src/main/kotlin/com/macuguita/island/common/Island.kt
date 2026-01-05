@@ -14,6 +14,7 @@ import com.macuguita.island.common.job.JobTicker
 import com.macuguita.island.common.network.cs2.JobZoneUpdateC2SPacket
 import com.macuguita.island.common.network.s2c.IceCreamSyncOrdersS2CPacket
 import com.macuguita.island.common.reg.*
+import folk.sisby.kaleido.api.WrappedConfig
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.player.UseBlockCallback
@@ -21,6 +22,7 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.Minecraft
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
@@ -39,6 +41,9 @@ object Island : ModInitializer {
 
     const val MOD_ID: String = "island"
     val LOGGER: Logger = LoggerFactory.getLogger(MOD_ID)
+
+    val CONFIG: Config =
+        WrappedConfig.createToml(FabricLoader.getInstance().configDir, "", MOD_ID, Config::class.java)
 
     fun id(name: String): Identifier {
         return Identifier.fromNamespaceAndPath(MOD_ID, name)

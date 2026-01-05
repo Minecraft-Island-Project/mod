@@ -14,15 +14,17 @@ import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.Level
 import java.util.*
 
 object JobTicker {
 
-    private val activeJobs: MutableMap<UUID, Identifier> = Collections.synchronizedMap<UUID, Identifier>(emptyMap()).toMutableMap()
+    private val activeJobs: MutableMap<UUID, Identifier> = Collections.synchronizedMap(mutableMapOf())
     private val jobsToEnd = mutableSetOf<UUID>()
 
     fun init() {
-        ServerTickEvents.END_WORLD_TICK.register { serverLevel ->
+        ServerTickEvents.END_SERVER_TICK.register { server ->
+            val serverLevel = server.getLevel(Level.OVERWORLD) ?: return@register
             tickServer(serverLevel)
             flushEndedJobs(serverLevel)
         }

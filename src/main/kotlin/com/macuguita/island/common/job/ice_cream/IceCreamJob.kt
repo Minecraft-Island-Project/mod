@@ -27,7 +27,7 @@ class IceCreamJob(id: Identifier) : Job(id) {
 
     private val random = Random()
     private var ticksSinceLastOrder = 0
-    private val minTicksBetweenOrders = 7 * 20
+    private val minTicksBetweenOrders = Island.CONFIG.common.ticksForNextIceCream
 
     private fun addOrder(order: IceCreamComponent) {
         orders.add(order)
@@ -43,12 +43,10 @@ class IceCreamJob(id: Identifier) : Job(id) {
         ServerPlayNetworking.send(player, IceCreamSyncOrdersS2CPacket(list))
 
     private fun syncOrdersToAllPlayers(serverLevel: ServerLevel) {
-        JobTicker.forEachActiveJob { uuid, job ->
+        JobTicker.forEachActiveJob { _, job ->
             if (job == id) {
-                Island.LOGGER.info("======== TRYING TO SYNC TO PLAYER WITH UUID: ${uuid} ========")
                 serverLevel.server.playerList.players.filter { JobTicker.getJob(it)?.id == id }
                     .forEach { player ->
-                        Island.LOGGER.info("======== SYNCED TO PLAYER WITH UUID: ${uuid} AND NAME: ${player.name.string} ========")
                         syncOrders(player)
                     }
             }
@@ -63,9 +61,10 @@ class IceCreamJob(id: Identifier) : Job(id) {
     }
 
     override fun tickServer(serverLevel: ServerLevel) {
+        tickCommon()
         ticksSinceLastOrder++
 
-        if (orders.size < 10 && ticksSinceLastOrder >= minTicksBetweenOrders) {
+        if (orders.size < 10 && ticksSinceLastOrder >= minTicksBetweenOrders && random.nextInt(4) == 1) {
             addOrder(generateRandomOrder())
             ticksSinceLastOrder = 0
         }
