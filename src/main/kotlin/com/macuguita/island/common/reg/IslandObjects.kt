@@ -7,9 +7,10 @@ package com.macuguita.island.common.reg
 import com.macuguita.island.common.Island
 import com.macuguita.island.common.block.DeskBlock
 import com.macuguita.island.common.block.ResizableBeamBlock
-import com.macuguita.island.common.block.jobs.JobZoneBlock
-import com.macuguita.island.common.block.jobs.ice_cream.FlavourPickerBlock
-import com.macuguita.island.common.block.jobs.ice_cream.ToppingPickerBlock
+import com.macuguita.island.common.block.job.JobZoneMasterBlock
+import com.macuguita.island.common.block.job.ice_cream.FlavourPickerBlock
+import com.macuguita.island.common.block.job.ice_cream.SubmitIceCreamBlock
+import com.macuguita.island.common.block.job.ice_cream.ToppingPickerBlock
 import com.macuguita.island.common.item.IceCreamConeItem
 import com.macuguita.island.common.util.Wood
 import com.macuguita.island.common.util.WoodSet
@@ -69,9 +70,15 @@ object IslandObjects {
         blockReg = ICE_CREAM_JOB_BLOCKS,
         itemReg = ICE_CREAM_JOB_BLOCK_ITEMS
     )
-    val ICE_CREAM_JOB_AREA = registerWithItem(
-        "ice_cream_job_area",
-        { prop -> JobZoneBlock(prop, IslandJobs.ICE_CREAM_ID) },
+    val ICE_CREAM_SUBMITTER = registerWithItem(
+        "ice_cream_submitter",
+        ::SubmitIceCreamBlock,
+        blockReg = ICE_CREAM_JOB_BLOCKS,
+        itemReg = ICE_CREAM_JOB_BLOCK_ITEMS
+    )
+    val JOB_ZONE_MASTER = registerWithItem(
+        "job_zone_master",
+        ::JobZoneMasterBlock,
         blockReg = ICE_CREAM_JOB_BLOCKS,
         itemReg = ICE_CREAM_JOB_BLOCK_ITEMS
     )

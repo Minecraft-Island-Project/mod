@@ -24,7 +24,7 @@ object JoinedServer {
                 .copyOnDeath()
         }
 
-    fun get(target: AttachmentTarget): JoinedServerData =
+    operator fun get(target: AttachmentTarget): JoinedServerData =
         JoinedServerData(target)
 }
 

@@ -23,6 +23,6 @@ class IslandItemTagProvider(
             .add(IslandObjects.ICE_CREAM_CONE.get())
             .add(IslandObjects.ICE_CREAM_CUP.get())
         valueLookupBuilder(IslandItemTags.JOB_AREA)
-            .add(IslandObjects.ICE_CREAM_JOB_AREA.get().asItem())
+            .add(IslandObjects.JOB_ZONE_MASTER.get().asItem())
     }
 }

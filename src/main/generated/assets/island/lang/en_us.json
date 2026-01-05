@@ -7,7 +7,8 @@
   "block.island.dark_oak_beam": "Dark Oak Beam",
   "block.island.desk": "Desk",
   "block.island.flavour_picker": "Flavour Picker",
-  "block.island.ice_cream_job_area": "Ice Cream Job Area",
+  "block.island.ice_cream_submitter": "Ice Cream Submitter",
+  "block.island.job_zone_master": "Job Zone Master",
   "block.island.jungle_beam": "Jungle Beam",
   "block.island.mangrove_beam": "Mangrove Beam",
   "block.island.oak_beam": "Oak Beam",
@@ -33,5 +34,7 @@
   "creative_tab.island.woods": "Woods",
   "item.island.ice_cream_cone": "Ice Cream Cone",
   "item.island.ice_cream_cup": "Ice Cream Cup",
-  "item.island.secateurs": "Secateurs"
+  "item.island.secateurs": "Secateurs",
+  "job_zone_master.job": "Job",
+  "job_zone_master.title": "Job Zone Master"
 }

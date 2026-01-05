@@ -22,6 +22,7 @@
     "secret_spectator.ServerPlayerGameModeMixin"
   ],
   "mixins": [
-    "FireBlockAccessor"
+    "FireBlockAccessor",
+    "InventoryAccessor"
   ]
 }

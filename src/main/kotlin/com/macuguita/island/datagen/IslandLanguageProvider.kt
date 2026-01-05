@@ -35,6 +35,8 @@ class IslandLanguageProvider(
         IslandCreativeModeTabs.CREATIVE_MODE_TABS.entries.forEach {
             generateCreativeTabTranslations(translationBuilder, it.get())
         }
+        translationBuilder.add("job_zone_master.title", "Job Zone Master")
+        translationBuilder.add("job_zone_master.job", "Job")
     }
 
     private fun capitalizeString(string: String): String {

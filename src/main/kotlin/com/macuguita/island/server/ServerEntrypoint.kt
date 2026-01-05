@@ -25,7 +25,7 @@ object ServerEntrypoint : DedicatedServerModInitializer {
         ServerWorldEvents.LOAD.register { server, _ -> ConnectionManager.init(server) }
         ServerPlayConnectionEvents.JOIN.register { handler, _, server ->
             val player = handler.player
-            val attachedData = JoinedServer.get(player)
+            val attachedData = JoinedServer[player]
             if (!attachedData.joinedServer) {
                 server.playerList.broadcastSystemMessage(
                     Component.literal(String.format(CONFIG.greetingMessage, player.name.string))

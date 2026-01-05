@@ -5,6 +5,7 @@
 package com.macuguita.island.common.job
 
 import com.macuguita.island.common.api.Job
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -13,19 +14,28 @@ import java.util.*
 
 object JobTicker {
 
-    // Map of player UUID -> current active job
-    val activeJobs: MutableMap<UUID, Job> = mutableMapOf()
+    private val activeJobs: MutableMap<UUID, Job> = LinkedHashMap()
+    private val jobsToEnd = mutableSetOf<UUID>()
 
     fun init() {
-        // Server-side tick
         ServerTickEvents.END_WORLD_TICK.register { serverLevel ->
             tickServer(serverLevel)
+            flushEndedJobs(serverLevel)
+        }
+        ClientTickEvents.END_CLIENT_TICK.register { _ ->
+            tickClient()
         }
     }
 
     private fun tickServer(serverLevel: ServerLevel) {
-        activeJobs.forEach { (_, job) ->
+        activeJobs.values.toList().forEach { job ->
             job.tickServer(serverLevel)
+        }
+    }
+
+    private fun tickClient() {
+        activeJobs.values.toList().forEach { job ->
+            job.tickClient()
         }
     }
 
@@ -34,15 +44,43 @@ object JobTicker {
     fun getJob(uuid: UUID): Job? = activeJobs[uuid]
 
     fun startJob(player: ServerPlayer, job: Job) {
-        activeJobs[player.uuid]?.endJob()
+        val currentJob = activeJobs[player.uuid]
+
+        if (currentJob === job) {
+            return
+        }
+
+        currentJob?.end(player)
 
         activeJobs[player.uuid] = job
-        job.startJob()
+        job.start(player)
     }
 
-    fun endJob(player: ServerPlayer) {
-        activeJobs[player.uuid]?.endJob()
-        activeJobs.remove(player.uuid)
+    fun requestEndJob(player: ServerPlayer) {
+        jobsToEnd.add(player.uuid)
     }
+
+    fun requestEndJob(uuid: UUID) {
+        jobsToEnd.add(uuid)
+    }
+
+    private fun flushEndedJobs(serverLevel: ServerLevel) {
+        jobsToEnd.forEach { uuid ->
+            val player = serverLevel.getPlayerByUUID(uuid) ?: return@forEach
+            activeJobs.remove(uuid)?.end(player as? ServerPlayer ?: return@forEach)
+        }
+        jobsToEnd.clear()
+    }
+
+    fun forEachActiveJob(action: (UUID, Job) -> Unit) {
+        activeJobs.toMap().forEach(action)
+    }
+
+    fun activeJobsContains(predicate: (UUID, Job) -> Boolean): Boolean =
+        activeJobs.any { (uuid, job) -> predicate(uuid, job) }
+
+    fun activeJobsContains(player: Player): Boolean =
+        activeJobs.containsKey(player.uuid)
+
 }
 

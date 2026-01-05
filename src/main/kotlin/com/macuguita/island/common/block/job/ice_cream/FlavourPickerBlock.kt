@@ -2,7 +2,7 @@
  * Copyright (c) 2026 macuguita. All Rights Reserved.
  */
 
-package com.macuguita.island.common.block.jobs.ice_cream
+package com.macuguita.island.common.block.job.ice_cream
 
 import com.macuguita.island.common.data_components.IceCreamComponent
 import com.macuguita.island.common.job.ice_cream.IceCreamFlavour

@@ -12,7 +12,7 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.component.TooltipDisplay
 import java.util.function.Consumer
 
-class IceCreamConeItem(properties: Properties) : Item(properties) {
+class IceCreamConeItem(properties: Properties) : Item(properties.stacksTo(1)) {
 
     override fun appendHoverText(
         itemStack: ItemStack,

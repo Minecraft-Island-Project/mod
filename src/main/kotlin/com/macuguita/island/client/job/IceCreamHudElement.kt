@@ -1,27 +1,28 @@
-/*
- * Copyright (c) 2026 macuguita. All Rights Reserved.
- */
-
-package com.macuguita.island.common.job.ice_cream
+package com.macuguita.island.client.job
 
 import com.macuguita.island.common.Island
 import com.macuguita.island.common.job.JobTicker
+import com.macuguita.island.common.job.ice_cream.IceCreamJob
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement
 import net.minecraft.client.DeltaTracker
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 
 class IceCreamHudElement : HudElement {
-    override fun render(context: GuiGraphics, tickCounter: DeltaTracker) {
+
+    override fun render(context: GuiGraphics, tickCounter: DeltaTracker) { //TODO: make cute with custom textures
         val player = Minecraft.getInstance().player ?: return
         val job = JobTicker.getJob(player) as? IceCreamJob ?: return
 
         val font = Minecraft.getInstance().font
         var y = 10
 
-        job.orders.forEachIndexed { index, order ->
-            val text = "Order ${index + 1}: ${order.toListOfFlavours().joinToString { it.name }}"
-            context.drawString(font, text, 10, y, 0xFFFFFF)
+        job.orders.toList().forEachIndexed { index, order ->
+            var text = "Order ${index + 1}: ${order.toListOfFlavours().joinToString { it.name }}"
+            if (order.topping != null) text += ", ${order.topping}"
+            context.drawString(font, text, 10, y, 0xFFFFFFFF.toInt())
             y += 10
         }
     }

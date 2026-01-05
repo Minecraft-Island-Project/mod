@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "island:ice_cream_job_area"
+          "name": "island:job_zone_master"
         }
       ],
       "rolls": 1.0
