@@ -4,11 +4,13 @@
 
 package com.macuguita.island.common
 
+import com.google.common.reflect.Reflection
 import com.macuguita.island.client.job.gui.JobZoneMasterScreen
+import com.macuguita.island.common.attachments.JoinedServer
+import com.macuguita.island.common.attachments.SavedInventory
 import com.macuguita.island.common.block.ResizableBeamBlock
 import com.macuguita.island.common.block.entity.JobZoneMasterBlockEntity
 import com.macuguita.island.common.commands.CommandRegistrator
-import com.macuguita.island.common.data_components.IceCreamComponent
 import com.macuguita.island.common.item.IceCreamConeItem
 import com.macuguita.island.common.job.JobTicker
 import com.macuguita.island.common.network.cs2.JobZoneUpdateC2SPacket
@@ -24,14 +26,10 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.client.Minecraft
-import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.Identifier
 import net.minecraft.tags.ItemTags
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.level.block.Block
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
@@ -53,44 +51,22 @@ object Island : ModInitializer {
 
     fun Player.openJobZoneMasterScreen(blockEntity: JobZoneMasterBlockEntity) {
         if (this.level().isClientSide) {
-            Minecraft.getInstance().setScreen(JobZoneMasterScreen(blockEntity))
+            val minecraft = Minecraft.getInstance()
+            val screen = minecraft.screen
+            minecraft.setScreen(JobZoneMasterScreen(blockEntity, screen))
         }
     }
 
     override fun onInitialize() {
-        IslandObjects.init()
-        IslandBlockEntities.init()
-        IslandCreativeModeTabs.init()
-        IslandDataComponents.init()
+        initRegistries()
+
         JobTicker.init()
 
-        PayloadTypeRegistry.playC2S().register(JobZoneUpdateC2SPacket.ID, JobZoneUpdateC2SPacket.CODEC)
-        PayloadTypeRegistry.playS2C().register(IceCreamSyncOrdersS2CPacket.ID, IceCreamSyncOrdersS2CPacket.CODEC)
+        registerPayloads()
 
         ServerPlayNetworking.registerGlobalReceiver(
             JobZoneUpdateC2SPacket.ID,
-            { payload, context ->
-                val server = context.server()
-
-                server.execute {
-                    val level = context.player().level()
-                    val blockEntityPos = payload.blockPos
-                    (level.getBlockEntity(blockEntityPos) as? JobZoneMasterBlockEntity)?.let { blockEntity ->
-                            blockEntity.jobId = payload.jobId
-                            blockEntity.zonePos = payload.zonePos
-                            blockEntity.zoneSize = payload.zoneSize
-                            blockEntity.showBoundingBox = payload.showBoundingBox
-
-                            blockEntity.setChanged()
-                            level.sendBlockUpdated(
-                                blockEntityPos,
-                                blockEntity.blockState,
-                                blockEntity.blockState,
-                                Block.UPDATE_ALL
-                            )
-                        }
-                }
-            }
+            JobZoneUpdateC2SPacket.Receiver()
         )
 
         UseItemCallback.EVENT.register { player, level, hand ->
@@ -121,5 +97,23 @@ object Island : ModInitializer {
             InteractionResult.PASS
         }
         CommandRegistrationCallback.EVENT.register(CommandRegistrator.RegisterCommands())
+    }
+
+    fun initRegistries() {
+        Reflection.initialize(JoinedServer::class.java)
+        Reflection.initialize(SavedInventory::class.java)
+        IslandObjects.init()
+        IslandBlockEntities.init()
+        IslandCreativeModeTabs.init()
+        IslandDataComponents.init()
+    }
+
+    fun registerPayloads() {
+        PayloadTypeRegistry.playC2S().register(JobZoneUpdateC2SPacket.ID, JobZoneUpdateC2SPacket.CODEC)
+        PayloadTypeRegistry.playS2C().register(IceCreamSyncOrdersS2CPacket.ID, IceCreamSyncOrdersS2CPacket.CODEC)
+    }
+
+    fun registerEvents() {
+
     }
 }

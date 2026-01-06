@@ -4,39 +4,19 @@
 
 package com.macuguita.island.server.admin
 
+import com.macuguita.island.shim.SavedDataTypes
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.core.UUIDUtil
 import net.minecraft.server.MinecraftServer
-import net.minecraft.util.datafix.DataFixTypes
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.saveddata.SavedData
 import net.minecraft.world.level.saveddata.SavedDataType
 import java.util.*
 
-object ConnectionManager {
+class ConnectionState private constructor(private val uuidsInternal: MutableSet<UUID> = HashSet()) : SavedData() {
 
-    private lateinit var state: ConnectionState
-
-    fun init(server: MinecraftServer) {
-        val manager = server.overworld().dataStorage
-        @Suppress("UNCHECKED_CAST")
-        state = manager.computeIfAbsent(ConnectionState.TYPE)
-    }
-
-    @JvmStatic
-    fun shouldManage(uuid: UUID): Boolean = state.contains(uuid)
-
-    @JvmStatic
-    fun add(uuid: UUID): Boolean = state.add(uuid)
-
-    @JvmStatic
-    fun remove(uuid: UUID): Boolean = state.remove(uuid)
-
-    @JvmStatic
-    fun all(): Set<UUID> = state.all()
-}
-
-class ConnectionState(private val uuidsInternal: MutableSet<UUID> = HashSet()) : SavedData() {
+    constructor() : this(mutableSetOf())
 
     fun add(uuid: UUID): Boolean = uuidsInternal.add(uuid).also { if (it) setDirty() }
 
@@ -46,9 +26,9 @@ class ConnectionState(private val uuidsInternal: MutableSet<UUID> = HashSet()) :
 
     fun all(): Set<UUID> = Collections.unmodifiableSet(HashSet(uuidsInternal))
 
-    companion object {
-        const val ID = "connection_manager"
+    fun shouldManage(uuid: UUID) = uuidsInternal.contains(uuid)
 
+    companion object {
         val CODEC: Codec<ConnectionState> = RecordCodecBuilder.create { inst ->
             inst.group(
                 UUIDUtil.CODEC_SET.fieldOf("uuids").forGetter { it.uuidsInternal }
@@ -56,6 +36,19 @@ class ConnectionState(private val uuidsInternal: MutableSet<UUID> = HashSet()) :
         }
 
         @JvmField
-        val TYPE: SavedDataType<ConnectionState> = SavedDataType(ID, ::ConnectionState, CODEC, DataFixTypes.LEVEL)
+        val TYPE: SavedDataType<ConnectionState> = SavedDataTypes.create(
+            "connection_manager",
+            ::ConnectionState,
+            CODEC,
+            null
+        )
+
+        @JvmStatic
+        fun getConnectionState(server: MinecraftServer): ConnectionState {
+            val level =
+                server.getLevel(ServerLevel.OVERWORLD) ?: return ConnectionState()
+
+            return level.dataStorage.computeIfAbsent(TYPE)
+        }
     }
 }

@@ -16,7 +16,7 @@ object JoinedServer {
 
     val ATTACHMENT: AttachmentType<JoinedServerAttachedData> =
         AttachmentRegistry.create(
-            id("starter_items")
+            id("joined_server")
         ) { builder ->
             builder
                 .initializer { JoinedServerAttachedData.DEFAULT }

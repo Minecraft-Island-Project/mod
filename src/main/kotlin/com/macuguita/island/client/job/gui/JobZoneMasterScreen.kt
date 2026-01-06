@@ -16,7 +16,8 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
 
 class JobZoneMasterScreen(
-    private val blockEntity: JobZoneMasterBlockEntity
+    private val blockEntity: JobZoneMasterBlockEntity,
+    private val parent: Screen? = null,
 ) : Screen(Component.translatable("job_zone_master.title")) {
 
     companion object {
@@ -134,11 +135,11 @@ class JobZoneMasterScreen(
             JobZoneUpdateC2SPacket(blockEntity.blockPos, jobId, pos, size, showBoundingBox)
         )
 
-        minecraft.setScreen(null)
+        minecraft.setScreen(parent)
     }
 
     private fun onCancel() {
-        minecraft.setScreen(null)
+        minecraft.setScreen(parent)
     }
 
     private fun parseCoordinate(value: String): Int {

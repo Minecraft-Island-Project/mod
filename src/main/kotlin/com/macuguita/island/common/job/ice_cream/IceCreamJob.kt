@@ -43,12 +43,11 @@ class IceCreamJob(id: Identifier) : Job(id) {
         ServerPlayNetworking.send(player, IceCreamSyncOrdersS2CPacket(list))
 
     private fun syncOrdersToAllPlayers(serverLevel: ServerLevel) {
-        JobTicker.forEachActiveJob { _, job ->
-            if (job == id) {
-                serverLevel.server.playerList.players.filter { JobTicker.getJob(it)?.id == id }
-                    .forEach { player ->
-                        syncOrders(player)
-                    }
+        JobTicker.forEachActiveJob(serverLevel.server) { uuid, jobId ->
+            if (jobId == id) {
+                serverLevel.getPlayerByUUID(uuid)?.let { player ->
+                    syncOrders(player as ServerPlayer)
+                }
             }
         }
     }
@@ -75,12 +74,12 @@ class IceCreamJob(id: Identifier) : Job(id) {
         }
     }
 
-    override fun startJob(player: ServerPlayer) {
-        syncOrders(player)
-        //TODO: when the server restarts and you rejoin the isWorkingFlag seems to not care or something, probably needs fixing
+    override fun startJob(player: ServerPlayer, hadActiveJob: Boolean) {
         val savedInventoryComponent = SavedInventory[player]
-        if (savedInventoryComponent.isWorking) return
-        savedInventoryComponent.saveInventory(player.inventory)
+        if (!hadActiveJob) {
+            savedInventoryComponent.saveInventory(player.inventory)
+        }
+
         player.inventory.clearContent()
 
         val coneStack = ItemStack(IslandObjects.ICE_CREAM_CONE.get())
@@ -90,21 +89,29 @@ class IceCreamJob(id: Identifier) : Job(id) {
         player.inventory.setItem(1, cupStack)
 
         player.inventory.setChanged()
+
+        syncOrders(player)
     }
 
     override fun endJob(player: ServerPlayer) {
-        player.inventory.clearContent()
-        SavedInventory[player].loadInventory(player.inventory)
-        player.inventory.setChanged()
+        val savedInventoryComponent = SavedInventory[player]
+
+        if (savedInventoryComponent.hasSavedInventory()) {
+            player.inventory.clearContent()
+            savedInventoryComponent.loadInventory(player.inventory)
+            player.inventory.setChanged()
+        }
+
         syncOrders(player, emptyList())
     }
 
     fun submitIceCream(player: ServerPlayer, itemStack: ItemStack): Boolean {
-
         val iceCream = itemStack.get(IslandDataComponents.ICE_CREAM_COMPONENT.get())!!
         val item = itemStack.item
+
         if (!itemStack.`is`(IslandItemTags.ICE_CREAM_HOLDER))
             return false
+
         val order = orders.firstOrNull {
             it.toListOfFlavours().toSet() == iceCream.toListOfFlavours().toSet() &&
                     it.topping == iceCream.topping
@@ -128,5 +135,3 @@ class IceCreamJob(id: Identifier) : Job(id) {
         return IceCreamComponent.fromList(flavours, topping)
     }
 }
-
-

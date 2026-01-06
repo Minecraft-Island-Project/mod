@@ -4,24 +4,18 @@
 
 package com.macuguita.island.server
 
-import com.macuguita.island.common.Config
 import com.macuguita.island.common.Island
 import com.macuguita.island.common.attachments.JoinedServer
-import com.macuguita.island.server.admin.ConnectionManager
-import folk.sisby.kaleido.api.WrappedConfig
 import net.fabricmc.api.DedicatedServerModInitializer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents
-import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 
 object ServerEntrypoint : DedicatedServerModInitializer {
 
     override fun onInitializeServer() {
-        ServerWorldEvents.LOAD.register { server, _ -> ConnectionManager.init(server) }
         ServerPlayConnectionEvents.JOIN.register { handler, _, server ->
             val player = handler.player
             val attachedData = JoinedServer[player]

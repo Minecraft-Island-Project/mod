@@ -6,13 +6,16 @@ package com.macuguita.island.mixin.connection;
 
 import java.util.Random;
 
-import com.macuguita.island.server.admin.ConnectionManager;
+import com.macuguita.island.server.admin.ConnectionState;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
 
@@ -23,6 +26,9 @@ import net.fabricmc.api.Environment;
 @Mixin(ServerPlayer.class)
 public class ServerPlayerMixin {
 
+	@Shadow
+	@Final
+	private MinecraftServer server;
 	@Unique
 	private final Random random = new Random();
 	@Unique
@@ -37,7 +43,7 @@ public class ServerPlayerMixin {
 	private void island$onPositionCheck(double dx, double dy, double dz, CallbackInfo ci) {
 		ServerPlayer player = (ServerPlayer) (Object) this;
 
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		if (ConnectionState.getConnectionState(this.server).shouldManage(player.getUUID())) {
 			Vec3 currentPos = player.position();
 
 			double movementDistance = currentPos.distanceTo(lastPosition);

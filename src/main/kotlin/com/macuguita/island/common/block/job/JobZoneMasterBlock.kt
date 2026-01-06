@@ -55,7 +55,8 @@ class JobZoneMasterBlock(
         return if (level.isClientSide) null else createTickerHelper(
             blockEntityType,
             IslandBlockEntities.JOB_ZONE_MASTER_BLOCK_ENTITY.get(),
-            JobZoneMasterBlockEntity::serverTick)
+            JobZoneMasterBlockEntity::serverTick
+        )
     }
 
 }

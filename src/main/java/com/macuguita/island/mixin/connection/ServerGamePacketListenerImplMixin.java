@@ -6,7 +6,7 @@ package com.macuguita.island.mixin.connection;
 
 import java.util.Random;
 
-import com.macuguita.island.server.admin.ConnectionManager;
+import com.macuguita.island.server.admin.ConnectionState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ServerboundContainerClickPacket;
 import net.minecraft.network.protocol.game.ServerboundContainerClosePacket;
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
@@ -21,7 +22,10 @@ import net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket;
 import net.minecraft.network.protocol.game.ServerboundPaddleBoatPacket;
 import net.minecraft.network.protocol.game.ServerboundPickItemFromBlockPacket;
 import net.minecraft.network.protocol.game.ServerboundPickItemFromEntityPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.server.network.ServerCommonPacketListenerImpl;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
 import net.fabricmc.api.EnvType;
@@ -29,7 +33,7 @@ import net.fabricmc.api.Environment;
 
 @Environment(EnvType.SERVER)
 @Mixin(ServerGamePacketListenerImpl.class)
-public class ServerGamePacketListenerImplMixin {
+public abstract class ServerGamePacketListenerImplMixin extends ServerCommonPacketListenerImpl {
 
 	@Unique
 	private final Random random = new Random();
@@ -38,12 +42,17 @@ public class ServerGamePacketListenerImplMixin {
 	@Shadow
 	private int tickCount;
 
+	public ServerGamePacketListenerImplMixin(MinecraftServer minecraftServer, Connection connection, CommonListenerCookie commonListenerCookie) {
+		super(minecraftServer, connection, commonListenerCookie);
+	}
+
 	@Inject(
 			method = "tick",
 			at = @At("HEAD")
 	)
 	private void island$onTick(CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			tickCount++;
 
 			if (tickCount % 20 == 0) {
@@ -70,7 +79,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onBlockPlaceAttempt(CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.25f) {
 				ci.cancel();
 			}
@@ -83,7 +93,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onMovementPacket(ServerboundMovePlayerPacket packet, CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.3f) {
 				ci.cancel();
 			}
@@ -104,7 +115,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onPaddleBoatPacket(ServerboundPaddleBoatPacket packet, CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.5f) {
 				ci.cancel();
 			}
@@ -125,7 +137,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onContainerClickPacket(ServerboundContainerClickPacket packet, CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.15f) {
 				ci.cancel();
 			}
@@ -146,7 +159,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onContainerClosePacket(ServerboundContainerClosePacket packet, CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.05f) {
 				ci.cancel();
 			}
@@ -167,7 +181,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onPickItemPacket(ServerboundPickItemFromBlockPacket serverboundPickItemFromBlockPacket, CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.05f) {
 				ci.cancel();
 			}
@@ -188,7 +203,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onPickItemPacket(ServerboundPickItemFromEntityPacket serverboundPickItemFromEntityPacket, CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.05f) {
 				ci.cancel();
 			}
@@ -209,7 +225,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onVehicleMovementPacket(ServerboundMoveVehiclePacket packet, CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.3f) {
 				ci.cancel();
 			}
@@ -230,7 +247,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onInventoryClick(CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.3f) {
 				ci.cancel();
 			}
@@ -251,7 +269,8 @@ public class ServerGamePacketListenerImplMixin {
 			cancellable = true
 	)
 	private void island$onPingRequest(CallbackInfo ci) {
-		if (ConnectionManager.shouldManage(player.getUUID())) {
+		ServerCommonPacketListenerImplAccessor accessor = (ServerCommonPacketListenerImplAccessor) this;
+		if (ConnectionState.getConnectionState(accessor.island$getServer()).shouldManage(player.getUUID())) {
 			if (random.nextFloat() < 0.3f) {
 				ci.cancel();
 			}

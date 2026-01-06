@@ -10,4 +10,4 @@ data class JobZoneMasterBlockEntityRenderState(
     var sizeY: Int = 0,
     var sizeZ: Int = 0,
     var shouldRender: Boolean = false,
-): BlockEntityRenderState()
+) : BlockEntityRenderState()

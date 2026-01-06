@@ -6,7 +6,7 @@ package com.macuguita.island.common.commands.connection_manager
 
 import com.macuguita.island.common.commands.CommandRegistrator
 import com.macuguita.island.common.commands.CommandResult
-import com.macuguita.island.server.admin.ConnectionManager
+import com.macuguita.island.server.admin.ConnectionState
 import com.mojang.brigadier.CommandDispatcher
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands.*
@@ -27,12 +27,13 @@ object ConnectionManagerCommand : CommandRegistrator {
                                     val profiles = GameProfileArgument.getGameProfiles(ctx, "player")
                                     var addedCount = 0
                                     val alreadyAdded = mutableListOf<String>()
+                                    val server = ctx.source.server
 
                                     for (profile in profiles) {
                                         val uuid = profile.id
-                                        if (ConnectionManager.shouldManage(uuid)) {
+                                        if (ConnectionState.getConnectionState(server).shouldManage(uuid)) {
                                             alreadyAdded.add(profile.name)
-                                        } else if (ConnectionManager.add(uuid)) {
+                                        } else if (ConnectionState.getConnectionState(server).add(uuid)) {
                                             addedCount++
                                         }
                                     }
@@ -61,11 +62,12 @@ object ConnectionManagerCommand : CommandRegistrator {
                                     val profiles = GameProfileArgument.getGameProfiles(ctx, "player")
                                     var removedCount = 0
                                     val notPresent = mutableListOf<String>()
+                                    val server = ctx.source.server
 
                                     for (profile in profiles) {
                                         val uuid = profile.id
-                                        if (ConnectionManager.shouldManage(uuid)) {
-                                            ConnectionManager.remove(uuid)
+                                        if (ConnectionState.getConnectionState(server).shouldManage(uuid)) {
+                                            ConnectionState.getConnectionState(server).remove(uuid)
                                             removedCount++
                                         } else {
                                             notPresent.add(profile.name)

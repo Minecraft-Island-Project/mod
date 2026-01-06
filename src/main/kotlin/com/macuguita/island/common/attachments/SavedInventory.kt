@@ -36,10 +36,9 @@ object SavedInventory {
 data class SavedInventoryAttachedData(
     val playerInventory: List<Pair<Int, ItemStack>>,
     val equipmentInventory: EntityEquipment,
-    val isWorking: Boolean
 ) {
     companion object {
-        val DEFAULT = SavedInventoryAttachedData(emptyList(), EntityEquipment(), false)
+        val DEFAULT = SavedInventoryAttachedData(emptyList(), EntityEquipment())
 
         val CODEC: Codec<SavedInventoryAttachedData> = RecordCodecBuilder.create { instance ->
             val pairCodec: Codec<Pair<Int, ItemStack>> = RecordCodecBuilder.create { pairInstance ->
@@ -52,7 +51,6 @@ data class SavedInventoryAttachedData(
             instance.group(
                 pairCodec.listOf().fieldOf("playerInventory").forGetter { it.playerInventory },
                 EntityEquipment.CODEC.fieldOf("equipment").forGetter { it.equipmentInventory },
-                Codec.BOOL.fieldOf("isWorking").forGetter { it.isWorking },
             ).apply(instance, ::SavedInventoryAttachedData)
         }
     }
@@ -64,17 +62,21 @@ data class SavedInventoryData(private val target: AttachmentTarget) {
     private fun current(): SavedInventoryAttachedData =
         target.getAttachedOrElse(SavedInventory.ATTACHMENT, SavedInventoryAttachedData.DEFAULT)
 
+    fun hasSavedInventory(): Boolean {
+        val data = current()
+        return data.playerInventory.isNotEmpty() || !data.equipmentInventory.isEmpty
+    }
+
     fun saveInventory(inventory: Inventory) {
         val items = inventory.nonEquipmentItems.mapIndexedNotNull { slot, stack ->
             if (stack.isEmpty) null else slot to stack.copy()
         }
 
         val equipment = (inventory as InventoryAccessor).`island$getEquipment`()
-        // Make a deep copy of EntityEquipment
         val equipmentCopy = EntityEquipment()
         equipmentCopy.setAll(equipment)
 
-        target.setAttached(SavedInventory.ATTACHMENT, SavedInventoryAttachedData(items, equipmentCopy, true))
+        target.setAttached(SavedInventory.ATTACHMENT, SavedInventoryAttachedData(items, equipmentCopy))
     }
 
     fun loadInventory(inventory: Inventory) {
@@ -83,11 +85,12 @@ data class SavedInventoryData(private val target: AttachmentTarget) {
             inventory.setItem(slot, stack.copy())
         }
         (inventory as InventoryAccessor).`island$getEquipment`().setAll(current().equipmentInventory)
-        target.setAttached(SavedInventory.ATTACHMENT, SavedInventoryAttachedData.DEFAULT)
+        clearSavedInventory()
     }
 
-    val isWorking: Boolean
-        get() = current().isWorking
+    fun clearSavedInventory() {
+        target.setAttached(SavedInventory.ATTACHMENT, SavedInventoryAttachedData.DEFAULT)
+    }
 
     fun getSnapshot(): Pair<List<ItemStack>, EntityEquipment> {
         val itemsSnapshot = current().playerInventory.map { it.second.copy() }

@@ -23,6 +23,7 @@
   ],
   "mixins": [
     "FireBlockAccessor",
-    "InventoryAccessor"
+    "InventoryAccessor",
+    "connection.ServerCommonPacketListenerImplAccessor"
   ]
 }

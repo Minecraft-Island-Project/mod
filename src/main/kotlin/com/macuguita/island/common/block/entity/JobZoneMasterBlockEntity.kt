@@ -28,7 +28,7 @@ import net.minecraft.world.phys.AABB
 
 class JobZoneMasterBlockEntity(
     pos: BlockPos,
-    state: net.minecraft.world.level.block.state.BlockState,
+    state: BlockState,
 ) : BlockEntity(IslandBlockEntities.JOB_ZONE_MASTER_BLOCK_ENTITY.get(), pos, state),
     GameMasterBlock {
 
@@ -36,11 +36,17 @@ class JobZoneMasterBlockEntity(
         private const val MAX_SIZE = 48
 
         @JvmStatic
-        fun serverTick(level: Level, blockPos: BlockPos, blockState: BlockState, jobZoneMasterBlockEntity: JobZoneMasterBlockEntity) {
+        fun serverTick(
+            level: Level,
+            blockPos: BlockPos,
+            blockState: BlockState,
+            jobZoneMasterBlockEntity: JobZoneMasterBlockEntity
+        ) {
             if (level !is ServerLevel)
                 return
             val jobId = jobZoneMasterBlockEntity.jobId
-            val zoneAABB = calculateZoneAABB(blockPos, jobZoneMasterBlockEntity.zonePos, jobZoneMasterBlockEntity.zoneSize)
+            val zoneAABB =
+                calculateZoneAABB(blockPos, jobZoneMasterBlockEntity.zonePos, jobZoneMasterBlockEntity.zoneSize)
             val playersInZone = level.getPlayers { p ->
                 p.boundingBox.intersects(zoneAABB)
             }
@@ -50,13 +56,14 @@ class JobZoneMasterBlockEntity(
             for (player in playersInZone) {
                 val activeJob = JobTicker.getJob(player)
                 if (activeJob?.id != jobId) {
-                    JobTicker.startJob(player, jobId)
+                    JobTicker.requestStartJob(player, jobId)
                 }
             }
 
-            JobTicker.forEachActiveJob { uuid, activeJobId ->
+            JobTicker.forEachActiveJob(level.server) { uuid, activeJobId ->
                 if (activeJobId == jobId) {
-                    val player = level.server.playerList.players.first { it.uuid == uuid }
+                    val player = level.server.playerList.players.firstOrNull { it.uuid == uuid }
+                        ?: return@forEachActiveJob
                     val isOutsideZone = !player.boundingBox.intersects(zoneAABB.inflate(0.5))
                     if (isOutsideZone) {
                         JobTicker.requestEndJob(player)

@@ -1,4 +1,4 @@
-package com.macuguita.island.common.block.job.ice_cream;
+package com.macuguita.island.common.block.job.ice_cream
 
 import com.macuguita.island.common.job.JobTicker
 import com.macuguita.island.common.job.ice_cream.IceCreamJob

@@ -10,12 +10,14 @@ import folk.sisby.kaleido.lib.quiltconfig.api.annotations.Comment
 class Config : WrappedConfig() {
 
     var common = Common()
+
     class Common : Section {
         @Comment("Minimum amount of ticks to wait for the next order in the ice cream job")
-        var ticksForNextIceCream: Int = 5*20
+        var ticksForNextIceCream: Int = 5 * 20
     }
 
     var server = Server()
+
     class Server : Section {
         @Comment("The message that shows up when a player first joins the server")
         var greetingMessage: String = "%s has joined for the first time, say hi!"

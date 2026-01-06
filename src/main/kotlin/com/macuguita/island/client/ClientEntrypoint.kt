@@ -4,8 +4,8 @@
 
 package com.macuguita.island.client
 
-import com.macuguita.island.client.job.IceCreamHudElement
 import com.macuguita.island.client.job.JobZoneMasterBlockEntityRenderer
+import com.macuguita.island.client.job.gui.IceCreamHudElement
 import com.macuguita.island.common.data_components.IceCreamComponent
 import com.macuguita.island.common.network.s2c.IceCreamSyncOrdersS2CPacket
 import com.macuguita.island.common.reg.IslandBlockEntities
@@ -38,8 +38,7 @@ object ClientEntrypoint : ClientModInitializer {
         )
         ClientPlayNetworking.registerGlobalReceiver(
             IceCreamSyncOrdersS2CPacket.ID,
-            { payload, context ->
-                iceCreamOrders = payload.orders
-            })
+            IceCreamSyncOrdersS2CPacket.Receiver()
+        )
     }
 }

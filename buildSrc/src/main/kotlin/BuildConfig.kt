@@ -12,7 +12,7 @@ object BuildConfig {
     val description: String = "island"
     val license: String = "All-Rights-Reserved"
 
-    val fabricVersion: String = "0.140.2+$minecraftVersion"
+    val fabricVersion: String = "0.141.1+$minecraftVersion"
     val fabricKotlinVersion: String = "1.13.8+kotlin.2.3.0"
     val modMenuVersion: String = "17.0.0-alpha.1"
 

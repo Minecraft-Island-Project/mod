@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.resources.Identifier
+import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
@@ -19,15 +20,16 @@ import java.util.*
 
 object JobTicker {
 
-    private val activeJobs: MutableMap<UUID, Identifier> = Collections.synchronizedMap(mutableMapOf())
-    private val jobsToEnd = mutableSetOf<UUID>()
+    private val jobStartQueue: MutableList<Pair<UUID, Identifier>> = Collections.synchronizedList(mutableListOf())
+    private val jobEndQueue: MutableSet<UUID> = Collections.synchronizedSet(mutableSetOf())
 
     fun init() {
         ServerTickEvents.END_SERVER_TICK.register { server ->
             val serverLevel = server.getLevel(Level.OVERWORLD) ?: return@register
+            flushQueuedChanges(serverLevel)
             tickServer(serverLevel)
-            flushEndedJobs(serverLevel)
         }
+
         if (FabricLoader.getInstance().environmentType == EnvType.CLIENT) {
             ClientTickEvents.END_CLIENT_TICK.register { _ ->
                 tickClient()
@@ -35,8 +37,39 @@ object JobTicker {
         }
     }
 
+    private fun flushQueuedChanges(serverLevel: ServerLevel) {
+        val activeJobs = ActiveJobsSavedData.getActiveJobs(serverLevel.server)
+
+        jobEndQueue.toList().forEach { uuid ->
+            val player = serverLevel.getPlayerByUUID(uuid) ?: return@forEach
+            val jobId = activeJobs[uuid] ?: return@forEach
+
+            if (activeJobs.remove(uuid)) {
+                IslandJobs.JOBS[jobId]?.endJob(player as ServerPlayer)
+            }
+        }
+        jobEndQueue.clear()
+
+        jobStartQueue.toList().forEach { (uuid, newJobId) ->
+            val player = serverLevel.getPlayerByUUID(uuid) as? ServerPlayer ?: return@forEach
+            val currentJobId = activeJobs[uuid]
+
+            if (currentJobId == newJobId) return@forEach
+
+            currentJobId?.let { prevJobId ->
+                IslandJobs.JOBS[prevJobId]?.endJob(player)
+            }
+
+            val hadActiveJob = activeJobs[uuid] != null
+            activeJobs[uuid] = newJobId
+            IslandJobs.JOBS[newJobId]?.startJob(player, hadActiveJob)
+        }
+        jobStartQueue.clear()
+    }
+
     private fun tickServer(serverLevel: ServerLevel) {
-        activeJobs.values
+        val activeJobs = ActiveJobsSavedData.getActiveJobs(serverLevel.server)
+        activeJobs.allValues()
             .distinct()
             .forEach { jobId ->
                 IslandJobs.JOBS[jobId]?.tickServer(serverLevel)
@@ -44,50 +77,30 @@ object JobTicker {
     }
 
     private fun tickClient() {
-        activeJobs.values
-            .distinct()
-            .forEach { jobId ->
-                IslandJobs.JOBS[jobId]?.tickClient()
-            }
+        //TODO: handle differently because active jobs is server only
+//        activeJobs.allValues()
+//            .distinct()
+//            .forEach { jobId ->
+//                IslandJobs.JOBS[jobId]?.tickClient()
+//            }
     }
 
-    fun getJob(player: Player): Job? = IslandJobs.JOBS[activeJobs[player.uuid]]
+    fun getJob(player: Player): Job? {
+        val server = (player as? ServerPlayer)?.level()?.server ?: return null
+        val activeJobs = ActiveJobsSavedData.getActiveJobs(server)
+        return IslandJobs.JOBS[activeJobs[player.uuid]]
+    }
 
-    fun getJob(uuid: UUID): Job? = IslandJobs.JOBS[activeJobs[uuid]]
-
-    fun startJob(player: ServerPlayer, jobId: Identifier) {
-        val uuid = player.uuid
-        val currentJobId = activeJobs[uuid]
-
-        if (currentJobId == jobId) return
-
-        currentJobId?.let { prevJobId ->
-            IslandJobs.JOBS[prevJobId]?.end(player)
-        }
-
-        activeJobs[uuid] = jobId
-        IslandJobs.JOBS[jobId]?.start(player)
+    fun requestStartJob(player: ServerPlayer, jobId: Identifier) {
+        jobStartQueue.add(player.uuid to jobId)
     }
 
     fun requestEndJob(player: ServerPlayer) {
-        jobsToEnd.add(player.uuid)
+        jobEndQueue.add(player.uuid)
     }
 
-    fun requestEndJob(uuid: UUID) {
-        jobsToEnd.add(uuid)
-    }
-
-    private fun flushEndedJobs(serverLevel: ServerLevel) {
-        jobsToEnd.toList().forEach { uuid ->
-            val player = serverLevel.getPlayerByUUID(uuid) ?: return@forEach
-            val jobId = activeJobs.remove(uuid) ?: return@forEach
-            IslandJobs.JOBS[jobId]?.end(player as ServerPlayer)
-        }
-        jobsToEnd.clear()
-    }
-
-    fun forEachActiveJob(action: (UUID, Identifier) -> Unit) {
-        activeJobs.toMap().forEach(action)
+    fun forEachActiveJob(server: MinecraftServer, action: (UUID, Identifier) -> Unit) {
+        val activeJobs = ActiveJobsSavedData.getActiveJobs(server)
+        activeJobs.allEntries().forEach(action)
     }
 }
-
