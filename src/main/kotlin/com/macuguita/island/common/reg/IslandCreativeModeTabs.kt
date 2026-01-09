@@ -6,9 +6,9 @@ package com.macuguita.island.common.reg
 
 import com.macuguita.island.common.Island
 import com.macuguita.island.common.util.Wood
-import com.macuguita.lib.platform.registry.GuitaRegistries
-import com.macuguita.lib.platform.registry.GuitaRegistry
-import com.macuguita.lib.platform.registry.GuitaRegistryEntry
+import com.macuguita.lib.reg.GuitaRegistries
+import com.macuguita.lib.reg.GuitaRegistry
+import com.macuguita.lib.reg.GuitaRegistryEntry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.CreativeModeTab

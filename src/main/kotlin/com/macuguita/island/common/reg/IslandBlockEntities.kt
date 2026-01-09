@@ -2,8 +2,8 @@ package com.macuguita.island.common.reg
 
 import com.macuguita.island.common.Island
 import com.macuguita.island.common.block.entity.JobZoneMasterBlockEntity
-import com.macuguita.lib.platform.registry.GuitaRegistries
-import com.macuguita.lib.platform.registry.GuitaRegistry
+import com.macuguita.lib.reg.GuitaRegistries
+import com.macuguita.lib.reg.GuitaRegistry
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.block.entity.BlockEntityType

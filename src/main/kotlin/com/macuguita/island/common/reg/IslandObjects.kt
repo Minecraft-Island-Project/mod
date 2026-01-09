@@ -16,9 +16,9 @@ import com.macuguita.island.common.util.Wood
 import com.macuguita.island.common.util.WoodSet
 import com.macuguita.island.common.util.WoodType
 import com.macuguita.island.mixin.FireBlockAccessor
-import com.macuguita.lib.platform.registry.GuitaRegistries
-import com.macuguita.lib.platform.registry.GuitaRegistry
-import com.macuguita.lib.platform.registry.GuitaRegistryEntry
+import com.macuguita.lib.reg.GuitaRegistries
+import com.macuguita.lib.reg.GuitaRegistry
+import com.macuguita.lib.reg.GuitaRegistryEntry
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries

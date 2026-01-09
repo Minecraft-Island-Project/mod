@@ -16,5 +16,5 @@ object BuildConfig {
     val fabricKotlinVersion: String = "1.13.8+kotlin.2.3.0"
     val modMenuVersion: String = "17.0.0-alpha.1"
 
-    val maculibVersion: String = "1.0.5"
+    val maculibVersion: String = "2.0.0+$minecraftVersion"
 }

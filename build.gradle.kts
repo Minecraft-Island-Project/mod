@@ -52,10 +52,11 @@ base {
 
 repositories {
     val exclusiveRepos = listOf(
+        Triple("macuguita", "https://maven.macuguita.com/releases", listOf("com.macuguita")),
+        Triple("ParchmentMC", "https://maven.parchmentmc.org", listOf("org.parchmentmc.data")),
+        Triple("Modrinth", "https://api.modrinth.com/maven", listOf("maven.modrinth")),
         Triple("Shedaniel", "https://maven.shedaniel.me/", listOf("me.shedaniel.cloth")),
         Triple("TerraformersMC", "https://maven.terraformersmc.com/", listOf("com.terraformersmc", "dev.emi")),
-        Triple("Modrinth", "https://api.modrinth.com/maven", listOf("maven.modrinth")),
-        Triple("ParchmentMC", "https://maven.parchmentmc.org", listOf("org.parchmentmc.data")),
         Triple("Sleeping town", "https://repo.sleeping.town/", listOf("folk.sisby")),
     )
 
@@ -90,9 +91,9 @@ dependencies {
     modImplementation("net.fabricmc:fabric-language-kotlin:${BuildConfig.fabricKotlinVersion}")
     include("net.fabricmc:fabric-language-kotlin:${BuildConfig.fabricKotlinVersion}")
 
-    modImplementation("maven.modrinth:macu-lib:${BuildConfig.maculibVersion}-${BuildConfig.minecraftVersion}-fabric"){
+    modImplementation("com.macuguita:macu_lib-fabric:${BuildConfig.maculibVersion}"){
         exclude("net.fabricmc.fabric-api")
-        include("maven.modrinth:macu-lib:${BuildConfig.maculibVersion}-${BuildConfig.minecraftVersion}-fabric")
+        include("com.macuguita:macu_lib-fabric:${BuildConfig.maculibVersion}")
     }
 
     implementation("folk.sisby:kaleido-config:0.3.3+1.3.2")

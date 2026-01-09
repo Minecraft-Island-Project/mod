@@ -6,8 +6,8 @@ package com.macuguita.island.common.reg
 
 import com.macuguita.island.common.Island
 import com.macuguita.island.common.data_components.IceCreamComponent
-import com.macuguita.lib.platform.registry.GuitaRegistries
-import com.macuguita.lib.platform.registry.GuitaRegistry
+import com.macuguita.lib.reg.GuitaRegistries
+import com.macuguita.lib.reg.GuitaRegistry
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.BuiltInRegistries
 
