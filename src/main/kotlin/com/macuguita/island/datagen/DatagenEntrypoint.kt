@@ -17,5 +17,6 @@ object DatagenEntrypoint : DataGeneratorEntrypoint {
         pack.addProvider(::IslandBlockTagProvider)
         pack.addProvider(::IslandItemTagProvider)
         pack.addProvider(::IslandLanguageProvider)
+        pack.addProvider(::IslandRecipeProvider)
     }
 }

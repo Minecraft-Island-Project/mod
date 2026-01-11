@@ -58,6 +58,7 @@ repositories {
         Triple("Shedaniel", "https://maven.shedaniel.me/", listOf("me.shedaniel.cloth")),
         Triple("TerraformersMC", "https://maven.terraformersmc.com/", listOf("com.terraformersmc", "dev.emi")),
         Triple("Sleeping town", "https://repo.sleeping.town/", listOf("folk.sisby")),
+        Triple("Cassian", "https://maven.cassian.cc/", listOf("cc.cassian")),
     )
 
     exclusiveRepos.forEach { (name, url, groups) ->
@@ -70,7 +71,7 @@ repositories {
             }
             if (groups.isNotEmpty())
                 filter {
-                    groups.forEach { includeGroupByRegex(it) }
+                    groups.forEach { includeGroupAndSubgroups(it) }
                 }
         }
     }
@@ -94,6 +95,10 @@ dependencies {
     modImplementation("com.macuguita:macu_lib-fabric:${BuildConfig.maculibVersion}"){
         exclude("net.fabricmc.fabric-api")
         include("com.macuguita:macu_lib-fabric:${BuildConfig.maculibVersion}")
+    }
+
+    modLocalRuntime("cc.cassian.rrv:reliable-recipe-viewer-fabric:${BuildConfig.rrvVersion}"){
+        exclude("net.fabricmc.fabric-api")
     }
 
     implementation("folk.sisby:kaleido-config:0.3.3+1.3.2")

@@ -17,4 +17,5 @@ object BuildConfig {
     val modMenuVersion: String = "17.0.0-alpha.1"
 
     val maculibVersion: String = "2.0.0+$minecraftVersion"
+    val rrvVersion: String = "6.2.0+$minecraftVersion"
 }
